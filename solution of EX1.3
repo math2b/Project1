@@ -1,0 +1,91 @@
+\bigskip
+Work to reduced row-echelon form,
+
+first with j = $1$~,
+
+\[
+\begin{bmatrix}
+    	3 & 2 & 1 & 39\\
+        2 & 3 & 1 & 34 \\
+        1 & 2 & 3 & 26 \\
+	\end{bmatrix}
+    \xrightarrow[]{\text{$R\textsubscript{1} \leftrightarrow R\textsubscript{3}$~}}
+    \begin{bmatrix}
+    	1 & 2 & 3 & 26 \\
+        2 & 3 & 1 & 34 \\
+        3 & 2 & 1 & 39\\
+	\end{bmatrix}
+\]
+
+\[
+    \xrightarrow[]{\text{$-2R\textsubscript{1} + R\textsubscript{2}$~}}
+    \begin{bmatrix}
+    	1 & 2 & 3 & 26 \\
+        0 & -1 & -5 & -18 \\
+        3 & 2 & 1 & 39\\
+	\end{bmatrix}
+\xrightarrow[]{\text{$-3R\textsubscript{1} + R\textsubscript{3}$~}}
+    \begin{bmatrix}
+    	1 & 2 & 3 & 26 \\
+        0 & -1 & -5 & -18 \\
+        0 & -4 & -8 & -39\\
+	\end{bmatrix}
+\]
+
+Now, with j = 2,
+\[
+\xrightarrow[]{\text{$-4R\textsubscript{2} + R\textsubscript{3}$~}}
+    \begin{bmatrix}
+    	1 & 2 & 3 & 26 \\
+        0 & -1 & -5 & -18 \\
+        0 & 0 & 12 & 33\\
+	\end{bmatrix}
+\xrightarrow[]{\text{$2R\textsubscript{2} + R\textsubscript{1}$~}}
+    \begin{bmatrix}
+    	1 & 0 & -7 & -10 \\
+        0 & -1 & -5 & -18 \\
+        0 & 0 & 12 & 33\\
+	\end{bmatrix}    
+\xrightarrow[]{\text{$-R\textsubscript{2}$~}}
+    \begin{bmatrix}
+    	1 & 0 & -7 & -10 \\
+        0 & 1 & 5 & 18 \\
+        0 & 0 & 12 & 33\\
+	\end{bmatrix}    
+\]
+And finally, with j = 3,
+\[
+\xrightarrow[]{\text{$\frac{1}{12}R\textsubscript{3} $~}}
+    \begin{bmatrix}
+    	1 & 0 & -7 & -10 \\
+        0 & 1 & 5 & 18 \\
+        0 & 0 & 1 & \frac{11}{4}\\
+	\end{bmatrix}    
+\xrightarrow[]{\text{$-5R\textsubscript{3} + R\textsubscript{2}$~}}
+    \begin{bmatrix}
+    	1 & 0 & -7 & -10 \\
+        0 & 1 & 0 & \frac{17}{4} \\
+        0 & 0 & 1 & \frac{11}{4}\\
+	\end{bmatrix}    
+\xrightarrow[]{\text{$7R\textsubscript{3} + R\textsubscript{1}$~}}
+    \begin{bmatrix}
+    	1 & 0 & 0 & \frac{37}{4} \\
+        0 & 1 & 0 & \frac{17}{4} \\
+        0 & 0 & 1 & \frac{11}{4}\\
+	\end{bmatrix}    
+\]
+
+\bigskip
+Thus,
+\[
+\begin{bmatrix}
+    	1 & 0 & 0 & \frac{37}{4} \\
+        0 & 1 & 0 & \frac{17}{4} \\
+        0 & 0 & 1 & \frac{11}{4}\\
+	\end{bmatrix}    
+\]
+
+Therefore, this system of equation is: 
+\[x_1 = \frac{37}{4} = 9.25\]
+\[x_2 = \frac{17}{4} = 4.25\]
+\[x_3 = \frac{11}{4} = 2.75\]
