@@ -1,0 +1,1689 @@
+%needed for \theoremstyle below
+%Makes exercises renumbered for each numbered section
+%Omit [section] for a single numbered sequence of exercises
+
+\documentclass[11pt]{article}%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{amscd}
+\usepackage{amsfonts}
+\usepackage{epsfig}
+\usepackage{amsthm}%
+\setcounter{MaxMatrixCols}{30}
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{Version=5.50.0.2960}
+%TCIDATA{CSTFile=LaTeX article.cst}
+%TCIDATA{LastRevised=Tuesday, June 18, 2013 08:41:43}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Language=American English}
+%BeginMSIPreambleData
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+%EndMSIPreambleData
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[section]
+\setlength{\topmargin}{-.55in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9.1in}
+\newcommand{\sep}{\vspace{-3pt} \begin{center}
+{\mathversion{normal}
+$\infty \mspace{-5.5mu} \infty \mspace{-5.5mu}
+\infty \mspace{-5.5mu} \infty \mspace{-5.5mu}
+\infty \mspace{-5.5mu} \infty \mspace{-5.5mu}
+\infty \mspace{-5.5mu} \infty$}
+\end{center} \vspace{-3pt}}
+\begin{document}
+
+\title{Computing the Determinant Through the Looking Glass}
+\author{Maria Zack\thanks{Mathematical, Information and Computer Sciences; Point Loma
+Nazarene University; San Diego, CA 92106; \texttt{MariaZack@pointloma.edu}.}}
+\date{}
+\maketitle
+
+\section{\bigskip\vspace{0in}\vspace{-0.1in}Introduction}
+
+The question of how to solve systems of linear equations has been in existence
+for several thousand years. Ancient Babylonian tablets contain examples of
+problems that can be described with linear equations. One of the earliest
+examples of using matrices for solving systems of linear equations can be
+found in the book \textit{Nine Chapters on the Mathematical Art} [3] written
+between 200 and 100 BC during the Han Dynasty in China. The problem states:%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\textsf{There are three types of corn, of which three bundles of the first,
+two of the second, and one of the third make 39 measures. Two of the first,
+three of the second and one of the third make 34 measures. And one of the
+first, two of the second and three of the third make 26 measures. How many
+measures of corn are contained in one bundle of each type?}%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\noindent\textbf{Exercise 1.1} Set up a system of linear equations based on
+this problem from the \textit{Nine Chapters on the Mathematical Art}.
+
+\bigskip
+
+The text then shows three columns set up on a counting board (a tool for
+mathematical calculation) in the following manner:
+
+\begin{center}
+$%
+\begin{array}
+[c]{ccc}%
+1 & 2 & 3\\
+2 & 3 & 2\\
+3 & 1 & 1\\
+26 & 34 & 39
+\end{array}
+$
+\end{center}
+
+\bigskip\noindent\textbf{Exercise 1.2} Write the equations you found in
+Exercise 1.1 as an augmented matrix. How does your matrix compare with the
+numbers on the counting board?
+
+\bigskip\noindent\textbf{Exercise 1.3} Use row operations to get your
+augmented matrix from Exercise 1.2 into row-echelon form and solve the system
+of equations.
+
+\bigskip
+
+What is remarkable about the \textit{Nine Chapters on the Mathematical Art}
+text is that the author gives instructions to multiply and add columns in such
+a way that the numbers on the counting board are reduced to:
+
+\begin{center}
+$%
+\begin{array}
+[c]{ccc}%
+0 & 0 & 3\\
+0 & 5 & 2\\
+36 & 1 & 1\\
+99 & 24 & 39
+\end{array}
+$
+\end{center}
+
+\noindent\textbf{Exercise 1.4} Notice that the methods used in the
+\textit{Nine Chapters} are very similar to our modern approach to solving a
+system of equations. Verify that the solution that you obtained in Exercise
+1.3 is the same as the solution obtained when solving the equations given by
+the columns on the counting board shown below Exercise 1.3.
+
+\bigskip
+
+One of the earliest European examples (1559) of solving a system of
+simultaneous linear equations can be found in the \textit{Logistica
+(Arithmetic)} of the French writer Jean Borrel (1492-1572) (all Borrel
+translations taken from Stedall [8]). His problem states:%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\textsf{To find three numbers of which the first with the third of the rest
+makes 14. The second with a quarter of the rest makes 8. Likewise the third
+with the fifth part of the rest makes 8.}%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\noindent\textbf{Exercise 1.5} Translate Borrel's language into a system of
+simultaneous linear equations using the variables A, B and C.
+
+\bigskip
+
+Note that in the text below Borrel is using the symbol [ for an equals sign.
+\ He continues the solution to the problem in the following way:%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\textsf{To find three numbers of which the first with the third of the rest
+makes 14. The second with a quarter of the rest makes 8. Likewise the third
+with the fifth part of the rest makes 8.}
+
+\textsf{Put the first to be 1A, the second 1B, the third 1C. Therefore it will
+be that 1A, }$\frac{1}{3}$\textsf{B, }$\frac{1}{3}$\textsf{C [14. Likewise,
+1B, }$\frac{1}{4}$\textsf{A, }$\frac{1}{4}$\textsf{C [8. And also 1C, }%
+$\frac{1}{5}$\textsf{A, }$\frac{1}{5}$\textsf{B [8. Moreover, having made a
+second equation from these, you will have the first, second, and third, as I
+have put here.}
+
+\begin{center}%
+\begin{tabular}
+[c]{lllll}%
+\textsf{3A} & \textsf{1B} & \textsf{1C} & \textsf{[42} & \textsf{1ST}\\
+\textsf{1A} & \textsf{4B} & \textsf{1C} & \textsf{[32} & \textsf{2ND}\\
+\textsf{1A} & \textsf{1B} & \textsf{5C} & \textsf{[40} & \textsf{3RD}%
+\end{tabular}
+
+
+
+\end{center}
+
+\textsf{From these three equations others are made, by multiplication, or by
+adding to each other, until by subtracting the smaller from the greater there
+remains a quantity of only one symbol, which is done in this way. Multiply the
+second equation by 3, it makes 3A, 12B, 3C [96. Take away the first, there
+remains 11B, 2C [54.}
+
+\begin{center}%
+\begin{tabular}
+[c]{llll}%
+\textsf{3A} & \textsf{12B} & \textsf{3C} & \textsf{[96}\\
+\textsf{3A} & \textsf{1B} & \textsf{1C} & \textsf{[42}\\
+\textsf{ } & \textsf{11B} & \textsf{2C} & \textsf{[54}%
+\end{tabular}
+
+
+
+\end{center}
+
+\textsf{Again multiply the third equation by 3, it makes 3A, 3B, 15C [120.
+Take away the first, there remains 2B, 14C [78. }
+
+\begin{center}%
+\begin{tabular}
+[c]{llll}%
+\textsf{3A} & \textsf{3B} & \textsf{15C} & \textsf{[120}\\
+\textsf{3A} & \textsf{1B} & \textsf{1C} & \textsf{[42}\\
+\textsf{ } & \textsf{2B} & \textsf{14C} & \textsf{[78}%
+\end{tabular}
+
+
+
+\end{center}
+
+\textsf{ Multiply by 11, it makes 22B, 154C [858. Likewise multiply 11B, 2C
+[54 by 2, it makes 22B, 4C [108. \ Take that from 22B, 154C [858, there
+remains 150C [750]. \ Divide by 150, there comes 5, which is the number of all
+of C.}
+
+\begin{center}%
+\begin{tabular}
+[c]{llll}%
+\ \textsf{ } & \textsf{22B} & \textsf{154C} & \textsf{[858}\\
+\textsf{ } & \textsf{22B} & \textsf{4C} & \textsf{[108}\\
+\textsf{ } & \textsf{ } & \textsf{150C} & \textsf{[750}%
+\end{tabular}
+
+
+
+\end{center}
+
+\bigskip\textsf{ Since now you will have 1C worth 5, from the equation which
+is 2B, 14C [78, take 14C, that is 70, it leaves a remainder 8, which is worth
+2B, therefore 4 is the second number B. Moreover, so that you have the first
+from the equation where the number of the total is 40, subtract 5C, and 1B,
+that is, 29 and it leaves a remainder of 11, which is the first number A.
+Therefore the three numbers are 11, 4, 5, which were to be found.}%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\noindent\textbf{Exercise 1.6} Verify that Borrel's solution is
+correct.\bigskip
+
+\section{Solving Equations Using Determinants}
+
+The method that we use today for solving systems of linear equations developed
+slowly throughout the 17th, 18th and 19th centuries. The first discussion of
+the connection between the value of the determinant and the solution of a
+system of linear equations was in a letter that Gottfried Wilhelm von Leibniz
+(1646 - 1716) sent to Guillaume Fran\c{c}ois Antoine Marquis de L'H\^{o}pital
+(1661 - 1704) in 1683. \ In that letter Leibniz uses a computation that
+resembles a determinant as a basis for his claim that a particular system of
+linear equations has a solution.\textit{ }
+
+In his 1815 paper \textit{\textquotedblleft M\'{e}moire sur les fonctions qui
+ne peuvent obtenir que deux valeurs \'{e}gales et de signes contraires par
+suite des transpositions op\'{e}r\'{e}es entre les variables qu'elles
+renferment\textquotedblright}\ (Functions That Only Have Equal and Opposite
+Values as a Result of Transpositions between their Variables) the French
+mathematician Augustin Louis Cauchy (1789 -- 1857) gives a definition of what
+we now call determinants. It was Cauchy who attached the word determinant to
+the computation. He writes (Cauchy translations from Stedall [8]):%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\textsf{I shall now examine in particular a certain kind of alternating
+symmetric functions which present themselves in a great number of analytic
+investigations. It is by means of these functions that one expresses the
+general values of unknowns contained in several equations of the first degree.
+They appear whenever one needs to form conditional equations, thus as in the
+general theory of elimination. Messieurs Laplace and Vandermonde have
+considered them in this respect in the \textit{Memoires of the Academy of
+[S]ciences} (1772), and Monsieur Bezout has since examined them again from the
+same point of view in his \textit{Theory of [E]quations}. Monsieur Gauss has
+made use of them with advantage in his analytic investigations, to discover
+the general properties of forms of second degree, that is to say, polynomials
+of second degree with two or several variables; and he has denoted these same
+functions by the name determinants. I will keep this name which supplies an
+easy way of stating the results.}%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+Cauchy states that Gauss' use of the word "determinant" is not in the context
+of linear equations since Gauss allows for second degree terms. \ However
+because of some of the similarities, Cauchy adopts the word determinant for
+his own process. \ 
+
+Recall that the system of equations:
+
+\begin{center}
+$ax_{1}$ $+bx_{2}=u_{1}$
+
+$cx_{1}+dx_{2}=u_{2}$
+\end{center}
+
+\noindent can be written as the matrix equation $%
+\begin{bmatrix}
+a & b\\
+c & d
+\end{bmatrix}%
+\begin{bmatrix}
+x_{1}\\
+x_{2}%
+\end{bmatrix}
+$ = $%
+\begin{bmatrix}
+u_{1}\\
+u_{2}%
+\end{bmatrix}
+$ which we denote as $\mathbf{Ax=u.}$ $\mathbf{Ax=u}$ has a solution if \ and
+only if the matrix $\mathbf{A}$ is invertible and the solution is\textbf{
+}$\mathbf{x=A}^{-1}\mathbf{u}$. \ By the time that Cauchy wrote his 1815
+paper\ it was understood that a matrix is invertible if the determinant of the
+matrix is non-zero.
+
+In \textit{\textquotedblleft M\'{e}moire sur les fonctions qui ne peuvent
+obtenir que deux valeurs \'{e}gales et de signes contraires par suite des
+transpositions op\'{e}r\'{e}es entre les variables qu'elles
+renferment\textquotedblright} Cauchy uses row and column notation for the
+positions in a matrix. In particular an $n\times n$ matrix is given by:
+
+\begin{center}
+$\left[
+\begin{array}
+[c]{ccccc}%
+a_{1.1,} & a_{1.2,} & a_{1.3}, & ... & a_{1.n},\\
+a_{2.1,} & a_{2.2,} & a_{2.3,} & ... & a_{2.n,}\\
+a_{3.1,} & a_{3.2,} & a_{3.3,} & ... & a_{3.n,}\\
+etc. &  &  & ... & \\
+a_{n.1,} & a_{n.2,} & a_{n.3,} & ... & a_{n.n},
+\end{array}
+\right]  $
+\end{center}
+
+\noindent where $a_{i,j}$ is the entry in row $i$ and column $j$. He denotes a
+determinant by $S(\pm a_{1.1},a_{2.2},\ldots..,a_{n.n})$. Cauchy says:
+
+%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\textsf{I shall denote in what follows by the name of determinants. If one
+supposes successively }$n=1,n=2$\textsf{, etc\ldots, one will have}
+
+\begin{center}%
+\begin{tabular}
+[c]{ccc}%
+$S(\pm a_{1.1},a_{2.2})$ & \textsf{=} & $a_{1.1}a_{2.2}-a_{2.1}a_{1.2}$\\
+$S(\pm a_{1.1,}a_{2.2},a_{3.3})$ & \textsf{=} & $a_{1.1}a_{2.2}a_{3.3}%
++a_{2.1}a_{3.2}a_{1.3}+a_{3.1}a_{1.2}a_{2.3}$\\
+&  & $-a_{1.1}a_{3.2}a_{2.3}-a_{3.1}a_{2.2}a_{1.3}-a_{2.1}a_{1.2}a_{3.3}$%
+\end{tabular}
+
+
+
+\end{center}
+
+\noindent\textsf{etc.... for the determinants of second, and third order, etc.
+\ The quantities affected by different indices being considered in general as
+unequal, one sees that the determinant of second order contains four different
+quantities, namely,}
+
+\begin{center}
+$%
+\begin{array}
+[c]{cc}%
+a_{1.1,} & a_{1.2,}\\
+a_{2.1,} & a_{2.2,}%
+\end{array}
+$
+\end{center}
+
+\noindent\textsf{and that the determinant of third order contains nine, that
+is,}
+
+\begin{center}
+$%
+\begin{array}
+[c]{ccc}%
+a_{1.1,} & a_{1.2,} & a_{1.3,}\\
+a_{2.1,} & a_{2.2,} & a_{2.3,}\\
+a_{3.1,} & a_{3.2,} & a_{3.3,}%
+\end{array}
+$
+\end{center}
+
+\textsf{In general, the determinant of nth order, or}
+
+\begin{center}
+$S(\pm a_{1.1,}a_{2.2,}....,a_{n.n})$\textsf{,}
+\end{center}
+
+\noindent\textsf{will contain a number }$n^{2}$ \textsf{of different
+quantities, which will be respectively}
+
+\begin{center}
+$%
+\begin{array}
+[c]{ccccc}%
+a_{1.1,} & a_{1.2,} & a_{1.3,} & ... & a_{1.n,}\\
+a_{2.1,} & a_{2.2,} & a_{2.3,} & ... & a_{2.n,}\\
+a_{3.1,} & a_{3.2,} & a_{3.3,} & ... & a_{3.n,}\\
+etc. &  &  & ... & \\
+a_{n.1,} & a_{n.2,} & a_{n.3,} & ... & a_{n.n,}%
+\end{array}
+$
+\end{center}
+
+%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\noindent\textbf{Exercise 2.1} Use Cauchy's definition to find the
+determinants of the following:
+
+a. $%
+\begin{bmatrix}
+1 & 2\\
+4 & -1
+\end{bmatrix}
+$
+
+b. $\left[
+\begin{array}
+[c]{cc}%
+3 & -7\\
+2 & 5
+\end{array}
+\right]  $
+
+c. $%
+\begin{bmatrix}
+-2 & 3 & 0\\
+1 & 2 & -1\\
+-2 & 3 & 1
+\end{bmatrix}
+$
+
+d. $%
+\begin{bmatrix}
+5 & 0 & 4\\
+1 & 2 & -1\\
+-1 & -2 & 1
+\end{bmatrix}
+$
+
+e. $%
+\begin{bmatrix}
+5 & 3 & 4\\
+1 & 2 & -1\\
+-2 & 3 & 1
+\end{bmatrix}
+$
+
+\bigskip
+
+\noindent\textbf{Exercise 2.2} For each of the matrices in Exercise 2.1 state
+whether or not it is invertible and explain why.
+
+\bigskip
+
+\noindent\textbf{Exercise 2.3 }Try to determine how many terms would be
+involved in using Cauchy's method for computing the determinant for a 4x4 matrix.
+
+\bigskip
+
+What quickly becomes clear is that the method described by Cauchy involves a
+large number of multiplications and it would be helpful to have a system for
+locating all of the necessary combinations. Cauchy does offer a way to
+calculate determinants in general, but it is quite different from how we
+calculate them today.
+
+\section{Who Was Charles Dodgson?}
+
+Charles Lutwidge Dodgson (1832-1898) was born into a clerical family in
+England. His father Reverend Charles Dodgson was born in 1800 and studied
+mathematics at the University of Oxford. \ After graduation Rev. Dodgson
+became a Mathematics Lecturer and Fellow at Oxford. Because it was expected
+that university fellows remain single, when Rev. Dodgson married Frances Jane
+Lutwidge in 1827, he had to give up his position at Oxford. Rev. Dodgson then
+became a curate at All Saints' Church in Daresbury and it was in the manse at
+Daresbury that Charles Lutwidge Dodgson and nine of his ten brothers and
+sisters were born.
+
+Charles L. Dodgson's early education was provided by his parents and from a
+young age he showed an aptitude for his father's favorite subject,
+mathematics. As an older child, Charles L. was sent to boarding school but
+because he had a stammer and was considered of "delicate health," his years in
+school were socially difficult. \ However he excelled at his school work,
+particularly in the areas of mathematics and divinity.
+
+In 1851 Charles L. entered the University of Oxford. By 1852 he had earned
+degrees in mathematics and classics. Charles L. was soon awarded a Fellowship
+at Christ Church College in Oxford. With this Oxford University Fellowship
+came the right to live at Christ Church, and the expectation that he would
+remain unmarried and be ordained in the Church of England. In 1855 Dodgson
+became a Mathematics Lecturer at Oxford and in 1861 he took deacon's orders,
+though he never became an Anglican priest.
+
+Sometime around 1856 Dodgson became interested in photography and purchased a
+camera. He began taking photos of people, particularly the children of family
+and friends. Among those he photographed were the children of the writer
+George Macdonald and the sons of the poet Alfred Lord Tennyson. He also took a
+number of photographs of the three daughters of Henry George Liddell, the Dean
+of Christ Church.
+
+Dodgson also enjoyed telling stories to children and in 1862 Dean Liddell's
+daughter Alice persuaded Dodgson to write down and illustrate some of his
+stories. A few years later, a friend of the Liddell family convinced Dodgson
+to publish the stories with their illustrations. Charles Dodgson is better
+known by his pen name Lewis Carroll and although he was a mathematician, his
+most famous works are \textit{Alice's Adventures in Wonderland} (1865) and
+\textit{Through the Looking Glass} (1872).
+
+Dodgson did publish a number of mathematical books during his years at Oxford,
+but none of them are seen as ground breaking in the field of mathematics.
+Several of his texts were aimed at helping students to prepare for the Oxford
+University mathematics graduation exams and these books contain some
+interesting insights into how to approach specific problems. \ It is to one of
+those books, \textit{Elementary Treatise on Determinants with the Applications
+to Simultaneous Linear Equations} \textit{and Algebraical Geometry} (1867)
+[1], that we now turn our attention.
+
+\bigskip
+
+\section{Dodgson's Determinant Computation: The \textquotedblleft Method of
+Condensation\textquotedblright}
+
+Dodgson had a significant interest in geometry and spent time studying
+Euclid's \textit{Elements}. He was also interested in algebraic geometry (what
+we now call analytic geometry), which is the use of algebraic methods to find
+solutions to geometric problems. For example, solving the system of two linear equations
+
+\begin{center}
+$4x+2y=4$
+
+$2x+-1y=1$
+\end{center}
+
+\noindent yields the point $\mathbf{(x,y)}=\mathbf{(}\frac{3}{4},\frac{1}%
+{2}\mathbf{)}$ where the two lines intersect. Algebraic geometry was one of
+the topics on the Oxford leaving exams in mathematics and Dodgson's interest
+in determinants seems to have originated in his interest in solving systems of
+linear equations.
+
+Dodgson begins \textit{Elementary Treatise on Determinants with the
+Applications to Simultaneous Linear Equations and Algebraical Geometry }by
+including a number of well-known definitions related to matrices. Dodgson
+indicates in his preface that he has drawn on the work of other mathematicians
+including Isaac Todhunter (1820-1884). In 1861, Todhunter published \textit{An
+Elementary Treatise on the Theory of Equations} [9] and many of Dodgson's
+preliminary definitions and methods are similar to those in Todhunter. In the
+definitions, propositions and corollaries that follow, it is important to note
+that Dodgson calls a matrix a Block and that his footnotes are essential in
+clarifying information.%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\begin{center}
+\textsf{Definition V.}
+\end{center}
+
+\textsf{If, in a given Block [matrix], any rows, and as many columns, be
+selected: the square Block formed of their common Elements is called a Minor
+of the given Block. Hence any single Element of a Block, being common to one
+row and one column, is a Minor of it.}
+
+\textsf{Footnote for Definition V:}
+
+\textsf{Thus, in the Block }$%
+\begin{Bmatrix}
+d & b & m & s\\
+f & c & g & d\\
+e & h & r & l
+\end{Bmatrix}
+,$ \textsf{if we select the 2nd and 3rd rows, and the 2nd and 4th columns, we
+obtain the Minor }$%
+\begin{Bmatrix}
+c & d\\
+h & l
+\end{Bmatrix}
+.$
+
+\begin{center}
+\textsf{Definition VI.}
+\end{center}
+
+\textsf{If n be that dimension of a Block which is not greater than the other:
+its Minors of the nth degree are called its principal Minors; those of the (n
+-1)th degree its secondary Minors, and so on. Hence a square Block is its own
+principal Minor.}
+
+\textsf{Footnote for Definition VI:}
+
+\textsf{Thus, in the same Block [in definition V], the Minors }$%
+\begin{Bmatrix}
+d & b & m\\
+f & c & g\\
+e & h & r
+\end{Bmatrix}
+,%
+\begin{Bmatrix}
+d & m & s\\
+f & g & d\\
+e & r & l
+\end{Bmatrix}
+,$ \textsf{\&c.}, \textsf{are principal Minors; while }$%
+\begin{Bmatrix}
+d & m\\
+f & g
+\end{Bmatrix}
+,%
+\begin{Bmatrix}
+d & s\\
+f & d
+\end{Bmatrix}
+,%
+\begin{Bmatrix}
+b & s\\
+h & l
+\end{Bmatrix}
+,$ \textsf{\&c}., \textsf{are secondary Minors.}
+
+\begin{center}
+\textsf{Definition VII.}
+\end{center}
+
+\textsf{If, in a square Block, any rows, and as many columns, be selected: the
+Minor formed of their common Elements, and the Minor formed of the Elements
+common to the other rows and columns, are said to be complemental to each
+other.}
+
+\textsf{Footnote for Definition VII:}
+
+\textsf{Thus, in the Block }$%
+\begin{Bmatrix}
+b & g & h & r\\
+c & l & t & v\\
+d & m & f & e\\
+a & s & x & q
+\end{Bmatrix}
+,$\textsf{ the Minors }$%
+\begin{Bmatrix}
+b & g\\
+c & l
+\end{Bmatrix}
+$ \textsf{and }$%
+\begin{Bmatrix}
+f & e\\
+x & q
+\end{Bmatrix}
+$ \textsf{are complemental to each other; as also are the Minors }$%
+\begin{Bmatrix}
+c & v\\
+a & q
+\end{Bmatrix}
+$\textsf{ and }$%
+\begin{Bmatrix}
+g & h\\
+m & f
+\end{Bmatrix}
+$\textsf{. Thus, again, the single Element }$\mathit{f}$\textsf{ and the Minor
+}$%
+\begin{Bmatrix}
+b & g & r\\
+c & l & v\\
+a & s & q
+\end{Bmatrix}
+$\textsf{ are complemental to each other.}%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\bigskip
+
+\noindent\textbf{Exercise 3.1} For the matrix $%
+\begin{bmatrix}
+-2 & 3 & 0\\
+1 & 2 & -1\\
+-2 & 3 & 1
+\end{bmatrix}
+$ identify two different minors and their complements.
+
+\bigskip
+
+Next Dodgson provides a definition of a determinant that involves minors.
+Again, he clarifies what he means in the footnotes. Proposition I defines a
+determinant. Note that his notation 2%
+%TCIMACRO{\TEXTsymbol{\backslash}}%
+%BeginExpansion
+$\backslash$%
+%EndExpansion
+3 indicates the element in the 2nd row and 3rd column, what we would write as
+$a_{2,3}.$%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\begin{center}
+\textsf{Proposition I.}
+\end{center}
+
+\textsf{The determinantal coefficient of any Element of a square Block is the
+Determinant of its complemental Minor, affected with + or }$\mathsf{-}%
+$\textsf{ according as the numerals which constitute its symbol are similar or
+dissimilar.}%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+Here the word "similar" is used to mean that both terms are even or both terms
+are odd. Dissimilar means that one term is even and one is odd. For example 2%
+%TCIMACRO{\TEXTsymbol{\backslash}}%
+%BeginExpansion
+$\backslash$%
+%EndExpansion
+4 and 3%
+%TCIMACRO{\TEXTsymbol{\backslash}}%
+%BeginExpansion
+$\backslash$%
+%EndExpansion
+3 are similar and 3%
+%TCIMACRO{\TEXTsymbol{\backslash}}%
+%BeginExpansion
+$\backslash$%
+%EndExpansion
+4 is dissimilar. \ The footnote below is essential to understanding the proposition.%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\textsf{Footnote for Proposition I:}
+
+\textsf{Thus the Determinant of the Block }$%
+\begin{Bmatrix}
+a & b\\
+c & d
+\end{Bmatrix}
+$\textsf{ is }$(ad-bc)$\textsf{; and that of the Block }$%
+\begin{Bmatrix}
+a & b & c\\
+d & e & f\\
+g & h & k
+\end{Bmatrix}
+$\textsf{ is }$(aek-ahf-bdk+bgf+cdh-cge)$\textsf{. Here the Determinantal
+coefficient of }$e$\textsf{ is }$(ak-cg)$\textsf{, i.e. }$%
+\begin{vmatrix}
+a & c\\
+g & k
+\end{vmatrix}
+$\textsf{; and as }$e$\textsf{ corresponds to the symbol 2%
+%TCIMACRO{\TEXTsymbol{\backslash}}%
+%BeginExpansion
+$\backslash$%
+%EndExpansion
+2, the numerals of which are similar, the sign of this Determinant ought to be
++, and so we find it. Again, the Determinantal coefficient of }$f$\textsf{ is
+}$(-ah+bg)$\textsf{, i.e. -- }$%
+\begin{vmatrix}
+a & b\\
+g & h
+\end{vmatrix}
+$\textsf{; and as }$f$\textsf{ corresponds to the symbol 2%
+%TCIMACRO{\TEXTsymbol{\backslash}}%
+%BeginExpansion
+$\backslash$%
+%EndExpansion
+3, the numerals of which are dissimilar, the sign of this Determinant ought to
+be --, and so we find it.}%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+The corollary to Proposition I gives an explanation of the computation.%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\begin{center}
+\textsf{Corollary 1 to Proposition I.}
+\end{center}
+
+\textsf{If, in a square Block, any row, or column, be selected: the
+Determinant of the Block may be resolved into terms, each consisting of one of
+the Elements of that row, or column, multiplied by the Determinant of its
+complemental Minor.}
+
+\bigskip
+
+\textsf{Footnote for Corollary 1:}
+
+\textsf{This gives us a simple method for computing the value of a Determinant
+arithmetically. Thus,}
+
+$%
+\begin{vmatrix}
+3 & 1 & 2 & 4\\
+4 & 5 & 2 & 3\\
+3 & 1 & 3 & 2\\
+4 & 2 & 1 & 3
+\end{vmatrix}
+\mathsf{=}3%
+\begin{vmatrix}
+5 & 2 & 3\\
+1 & 3 & 2\\
+2 & 1 & 3
+\end{vmatrix}
+-1%
+\begin{vmatrix}
+4 & 2 & 3\\
+3 & 3 & 2\\
+4 & 1 & 3
+\end{vmatrix}
++2%
+\begin{vmatrix}
+4 & 5 & 3\\
+3 & 1 & 2\\
+4 & 2 & 3
+\end{vmatrix}
+-4%
+\begin{vmatrix}
+4 & 5 & 2\\
+3 & 1 & 3\\
+4 & 2 & 1
+\end{vmatrix}
+$
+
+\textsf{\qquad\qquad\qquad\qquad}$=3\times$ $\left\{  5%
+\begin{vmatrix}
+3 & 2\\
+1 & 3
+\end{vmatrix}
+-2%
+\begin{vmatrix}
+1 & 2\\
+2 & 3
+\end{vmatrix}
++3%
+\begin{vmatrix}
+1 & 3\\
+2 & 1
+\end{vmatrix}
+\right\}  -\&c.=3\times\left\{  35+2-15\right\}  -$ \textsf{\&c.}
+
+\qquad\qquad\qquad$\qquad=3\times22-\&c.=66-$ \textsf{\&c}$.$%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\noindent\textbf{Exercise 3.2} Use Dodgson's definition to find the
+determinants via minors of the matrices (note b and c appear as part of his
+footnote for the Corollary to Proposition I):
+
+a. $%
+\begin{bmatrix}
+-2 & 3 & 0\\
+1 & 2 & -1\\
+-2 & 3 & 1
+\end{bmatrix}
+$
+
+b. $%
+\begin{bmatrix}
+4 & 2 & 3\\
+3 & 3 & 2\\
+4 & 1 & 3
+\end{bmatrix}
+$
+
+c. $\left[
+\begin{array}
+[c]{ccc}%
+4 & 5 & 3\\
+3 & 1 & 2\\
+4 & 2 & 3
+\end{array}
+\right]  $
+
+\bigskip
+
+\noindent\textbf{Exercise 3.3} Now finish his computations for the 4x4 matrix
+in his footnotes for Proposition I, Corollary 1, and get a numerical value for
+that determinant.
+
+\bigskip
+
+As you can see from Exercise 3.3, even using this systematic method for
+computing determinants can be complicated because of the number of minors that
+must be computed to get down to 2x2 matrices whose determinants are easy to compute.
+
+Based on his book \textit{Elementary Treatise on Determinants with the
+Applications to Simultaneous Linear Equations and Algebraical Geometry},
+Dodgson published a short paper \textquotedblleft Condensation of
+Determinants, Being a New and Brief Method for Computing their Arithmetical
+Values\textquotedblright\ [2]. This paper was published in the 1866-67 edition
+of the \textit{Proceedings of the Royal Society,} and it is that paper that we
+will examine for an explanation of Dodgson's method. We begin with his introduction:%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\textsf{If it be proposed to solve a set of n simultaneous linear equations,
+not being all homogeneous, involving n unknowns, or to test their
+compatibility when all are homogeneous, by the method of determinants, in
+these, as well as in other cases of common occurrence, it is necessary to
+compute the arithmetical values of one or more determinants - such, for
+example, as}
+
+\begin{center}
+$%
+\begin{bmatrix}
+1 & 3 & -2\\
+2 & 1 & 4\\
+3 & 5 & -1
+\end{bmatrix}
+$
+\end{center}
+
+\textsf{Now the only method, so far as I am aware, that has been hitherto
+employed for such a purpose, is that of multiplying each term of the first row
+or column by the determinant of its complemental minor, and affecting the
+products with the signs }$\mathsf{+}$\textsf{ and }$\mathsf{-}$\textsf{
+alternately, the determinants required in the process being, in their turn,
+broken up in the same manner until determinants are finally arrived at
+sufficiently small for mental computation.}%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+Dodgson is describing in words Cauchy's system for computing determinants.
+\ For the example given above, the calculation would be:
+
+\begin{center}
+$%
+\begin{vmatrix}
+1 & 3 & -2\\
+2 & 1 & 4\\
+3 & -5 & 1
+\end{vmatrix}
+=1\times%
+\begin{vmatrix}
+1 & 4\\
+5 & -1
+\end{vmatrix}
+-3\times%
+\begin{vmatrix}
+2 & 4\\
+3 & -1
+\end{vmatrix}
++-2\times$\textsf{\ }$%
+\begin{vmatrix}
+2 & 1\\
+3 & 5
+\end{vmatrix}
+=-21+42-14=7$
+\end{center}
+
+Dodgson however recognizes the obvious problem with this method and says:%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\textsf{But such a process, when the block consists of 16, 25, or more terms,
+is so tedious that the [new] method of elimination is much to be preferred for
+solving simultaneous equations; so that the [old] method, excepting for
+equations containing 2 or 3 unknowns, is practically useless.}
+
+\bigskip
+
+\textsf{The new method of computation, which I now proceed to explain, and for
+which "Condensation" appears to be an appropriate name, will be found, I
+believe, to be far shorter and simpler than any hitherto employed.}
+
+\bigskip
+
+\textsf{In the following remarks I shall use the word "Block" to denote any
+number of terms arranged in rows and columns, and "interior of a block" to
+denote the block which remains when the first and last rows and columns are
+erased.}
+
+\bigskip
+
+\textsf{The process of "Condensation" is exhibited in the following rules, in
+which the given block is supposed to consist of n rows and n columns:}
+
+\textsf{(1) Arrange the given block, if necessary, so that no ciphers [0's]
+occur in its interior. This may be done either by transposing rows or columns,
+or by adding to certain rows the several terms of other rows multiplied by
+certain multipliers.}
+
+\textsf{(2) Compute the determinant of every minor consisting of four adjacent
+terms. These values will constitute a second block, consisting of n-1 rows and
+n-1 columns.}
+
+\textsf{(3) Condense this second block in the same manner, dividing each term,
+when found, by the corresponding term in the interior of the first block.}
+
+\textsf{(4) Repeat this process as often as may be necessary (observing that
+in condensing any block of the series, the rth for example, the terms so found
+must be divided by the corresponding terms in the interior of the (r-1)th
+block), until the block is condensed to a single term, which will be the
+required value.}%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+Dodgson's algorithmic description of his method is not clear. Robin Wilson, in
+his book \textit{Lewis Carroll in Numberland: His Fantastical Mathematical
+Logical Life }[10], gives a nice step by step example of Dodgson's method for
+a $3\times3$ matrix. \ Here is that example.
+
+\bigskip Suppose that we wish to calculate the determinant of the following
+matrix (the reason for the bolding the central 2 will soon become clear):
+
+\begin{center}
+$%
+\begin{vmatrix}
+1 & 4 & 2\\
+1 & \mathbf{2} & 3\\
+1 & 1 & 1
+\end{vmatrix}
+$
+\end{center}
+
+We first calculate the $2\times2$ determinant in each of the four sub-matrices
+in the corners of the matrix. \ The two upper sub-matrices and their
+determinants are:
+
+\begin{center}
+$%
+\begin{vmatrix}
+1 & 4\\
+1 & \mathbf{2}%
+\end{vmatrix}
+$ $=-2$, $%
+\begin{vmatrix}
+4 & 2\\
+\mathbf{2} & 3
+\end{vmatrix}
+=8$.
+\end{center}
+
+The two lower sub-matrices and their determinants are:
+
+\begin{center}
+$%
+\begin{vmatrix}
+1 & \boldsymbol{2}\\
+1 & 1
+\end{vmatrix}
+=-1$, $%
+\begin{vmatrix}
+\mathbf{2} & 3\\
+1 & 1
+\end{vmatrix}
+$ $=-1.$
+\end{center}
+
+\bigskip
+
+Then we write down the $2\times2$ matrix containing the determinants from the
+four sub-matrices and take the determinant of the resultant matrix:
+
+\begin{center}
+$%
+\begin{vmatrix}
+-2 & 8\\
+-1 & -1
+\end{vmatrix}
+$ = 10
+\end{center}
+
+Finally, we divide the result by the bolded number in the middle of the top
+matrix and get $\frac{10}{2}=5$, the correct answer for the determinant of the
+original matrix. \ 
+
+\bigskip
+
+\noindent\textbf{Exercise 3.4} The example of the algorithm that Dodgson
+provides in \textquotedblleft Condensation of Determinants, Being a New and
+Brief Method for Computing their Arithmetical Values\textquotedblright\ [2] is
+given below. \ Use Dodgson's description of the algorithm and Wilson's example
+to assist you in calculating each step of Dodgson's example. \ Dodgson's
+intermediate matrices allow you to check your work.%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\bigskip\textsf{As an instance of the foregoing rules, let us take the block}
+
+\begin{center}
+$%
+\begin{vmatrix}
+-2 & -1 & -1 & -4\\
+-1 & -2 & -1 & -6\\
+-1 & -1 & 2 & 4\\
+2 & 1 & -3 & -8
+\end{vmatrix}
+$
+\end{center}
+
+\textsf{\bigskip By rule (2) this is condensed into }$%
+\begin{vmatrix}
+3 & -1 & 2\\
+-1 & -5 & 8\\
+1 & 1 & -4
+\end{vmatrix}
+$\textsf{ this, again, by rule (3), is condensed into} $%
+\begin{vmatrix}
+8 & -2\\
+-4 & 6
+\end{vmatrix}
+$ \textsf{and this, by rule (4), into }$-8$\textsf{, which is the required
+value.}
+
+\textsf{The simplest method of working this rule appears to be to arrange the
+series of blocks one under another, as here exhibited; it will then be found
+very easy to pick out the divisors required in rules (3) and (4).}
+
+\begin{center}
+$%
+\begin{vmatrix}
+-2 & -1 & -1 & -4\\
+-1 & \mathbf{-2} & -1 & -6\\
+-1 & -1 & 2 & 4\\
+2 & 1 & -3 & -8
+\end{vmatrix}
+$
+
+$%
+\begin{vmatrix}
+\mathbf{3} & -1 & 2\\
+-1 & -5 & 8\\
+1 & 1 & -4
+\end{vmatrix}
+$
+
+\bigskip$%
+\begin{vmatrix}
+\mathbf{8} & -2\\
+-4 & 6
+\end{vmatrix}
+$
+
+\bigskip$-8$
+\end{center}
+
+%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+Hint: The values in each cell are coming from the computation of $2\times2$
+sub-matrices. \ For example the bold 3 in the $3\times3$ matrix above is found
+by taking the determinant of the $2\times2$ sub-matrix $\left[
+\begin{array}
+[c]{cc}%
+-2 & -1\\
+-1 & -2
+\end{array}
+\right]  $ in the $4\times4$ matrix$.$ The bold 8 in the $2\times2$ matrix
+above is found by taking the determinant of the sub-matrix $\left[
+\begin{array}
+[c]{cc}%
+3 & -1\\
+-1 & -5
+\end{array}
+\right]  $ in the $3\times3$ matrix. \ However, to obtain the value 8, this
+determinant is divided by the bolded -2 in the $4\times4$ matrix. This is what
+is described in Dodgson's rule (3).
+
+\bigskip
+
+\noindent\textbf{Exercise 3.5} Try using the method of condensation to find
+the following determinants.
+
+a. $%
+\begin{bmatrix}
+-2 & 3 & 0\\
+1 & 2 & -1\\
+-2 & 3 & 1
+\end{bmatrix}
+$
+
+b. $%
+\begin{bmatrix}
+5 & 2 & 3\\
+1 & 3 & 2\\
+2 & 1 & 3
+\end{bmatrix}
+$
+
+c. $%
+\begin{bmatrix}
+3 & 1 & 2 & 4\\
+4 & 5 & 2 & 3\\
+3 & 1 & 3 & 2\\
+4 & 2 & 1 & 3
+\end{bmatrix}
+$
+
+\bigskip
+
+Notice in particular how much less work is involved in finding the determinant
+of (c).
+
+\bigskip
+
+\noindent\textbf{Exercise 3.6} This exercise gives you some insight into why
+Dodgson's condensation method works. Compare your answers in Exercise 3.5 to
+your answers in Exercises 3.2 and 3.3. It is clear that you are getting the
+same answer using different methods. To understand what is occurring, compute
+the determinant for $%
+\begin{bmatrix}
+a & b & c\\
+u & v & w\\
+x & y & z
+\end{bmatrix}
+$using both the condensation method found in Exercise 3.5 and the computation
+of minor method found in Exercise 3.2. What do you notice about the equations
+created by each method? What does this tell us about the methods? \ A proof
+showing that Dodgson's method works can be found in [7].
+
+\bigskip
+
+Dodgson's condensation method does have problems when encountering 0's (what
+he calls ciphers) in critical locations. If you look back at the first step of
+his algorithm:%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\textsf{(1) Arrange the given block, if necessary, so that no ciphers occur in
+its interior. This may be done either by transposing rows or columns, or by
+adding to certain rows the several terms of other rows multiplied by certain
+multipliers.}%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+That takes care of the initial conditions, but what happens when a 0 appears
+in the middle of the condensation? Here is what Dodgson says:
+
+\newpage%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\textsf{This process cannot be continued when ciphers occur in the interior of
+any one of the blocks, since infinite values would be introduced by employing
+them as divisors. When they occur in the given block itself, it may be
+rearranged as has been already mentioned; but this cannot be done when they
+occur in any one of the derived blocks; in such a case the given block must be
+rearranged as circumstances require, and the operation commenced anew.}
+
+\bigskip
+
+\textsf{The best way of doing this is as follows:}
+
+\bigskip
+
+\textsf{Suppose a cipher to occur in the hth row and kth column of one of the
+derived blocks (reckoning both row and column from the nearest corner of the
+block); find the term in the hth row and kth column of the given block
+(reckoning from the corresponding corner), and transpose rows or columns
+cyclically until it is left in an outside row or column. When the necessary
+alterations have been made in the derived blocks, it will be found that the
+cipher now occurs in an outside row or column, and therefore need no longer be
+used as a divisor.}
+
+\bigskip
+
+\textsf{The advantage of cyclical transposition is, that most of the terms in
+the new blocks will have been computed already, and need only be copied; in no
+case will it be necessary to compute more than one new row or column for each
+block of the series.}
+
+\bigskip
+
+\textsf{In the following instance it will be seen that in the first series of
+blocks a cipher occurs in the interior of the third. We therefore abandon the
+process at that point and begin again, rearranging the given block by
+transferring the top row to the bottom; and the cipher, when it occurs, is now
+found in an exterior row. It will be observed}\textit{ }\textsf{that in each
+block of the new series, there is only one new row to be computed; the other
+rows are simply copied from the work already done.}
+
+\begin{center}
+$%
+\begin{vmatrix}
+2 & -1 & 2 & 1 & -3\\
+1 & 2 & 1 & -1 & 2\\
+1 & -1 & -2 & -1 & -1\\
+2 & 1 & -1 & -2 & -1\\
+1 & -2 & -1 & -1 & 2
+\end{vmatrix}
+\mathsf{\qquad\qquad\qquad\qquad\qquad\qquad}%
+\begin{vmatrix}
+1 & 2 & 1 & -1 & 2\\
+1 & -1 & -2 & -1 & -1\\
+2 & 1 & -1 & -2 & -1\\
+1 & -2 & -1 & -1 & 2\\
+2 & -1 & 2 & 1 & -3
+\end{vmatrix}
+$
+
+$%
+\begin{vmatrix}
+5 & -5 & -3 & -1\\
+-3 & -3 & -3 & 3\\
+3 & 3 & 3 & -1\\
+-5 & -3 & -1 & -5
+\end{vmatrix}
+\mathsf{\qquad\qquad\qquad\qquad\qquad\qquad\qquad}%
+\begin{vmatrix}
+-3 & -3 & -3 & 3\\
+3 & 3 & 3 & -1\\
+-5 & -3 & -1 & -5\\
+3 & -5 & 1 & 1
+\end{vmatrix}
+$
+
+$%
+\begin{vmatrix}
+\mathbf{-15} & 6 & \mathbf{12}\\
+0 & 0 & 6\\
+6 & -6 & 8
+\end{vmatrix}
+\mathsf{\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad}%
+\begin{vmatrix}
+0 & 0 & 6\\
+6 & -6 & 8\\
+-17 & 8 & -4
+\end{vmatrix}
+$
+
+\textsf{\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad
+\qquad\qquad}$%
+\begin{vmatrix}
+0 & 12\\
+18 & 40
+\end{vmatrix}
+$
+
+\textsf{\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad
+\qquad\qquad}$36$
+
+
+\end{center}
+
+\textsf{The fact that, whenever ciphers occur in the interior of a derived
+block, it is necessary to recommence the operation, may be thought a great
+obstacle to the use of this method; but I believe it will be found in practice
+that, even though this should occur several times in the course of one
+operation, the whole amount of labour will still be much less than that
+involved in the old process of computation.}%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\bigskip
+
+Note that the two bold numbers in the bottom matrix on the left hand side are
+corrections of what was in Dodgson's original text which contained an error.
+
+\bigskip
+
+\noindent\textbf{Exercise 3.7} Based on the numerical example above, what does
+Dodgson mean by \textquotedblleft transpose the rows or columns
+cyclically\textquotedblright?
+
+\bigskip
+
+\noindent\textbf{Exercise 3.8} Walk through both computations in Dodgson's
+description above. Make sure that you show the $2\times2$ minor matrices at
+each step. Mark which $2\times2$ matrices you are able to reuse in the
+computation on the right after the matrix has been rearranged.
+
+\bigskip
+
+One question that comes immediately to mind is how do we know that the matrix
+on the right has the same determinant as the matrix on the left? Dodgson
+resolves this issue and several other computational issues related to
+determinants in \textit{Elementary Treatise on Determinants with the
+Applications to Simultaneous Linear Equations and Algebraical Geometry}. The
+relevant proposition and corollary are given below.%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+\begin{center}
+\textsf{Proposition II.}
+\end{center}
+
+\textsf{If, in a square block, 2 rows, or 2 columns, be interchanged: the
+Determinant of the new Block has the same absolute value as that of the first,
+but the opposite sign.}
+
+\bigskip\textsf{Footnote for Proposition II:}
+
+\textsf{Thus the Determinant }$%
+\begin{vmatrix}
+a & b & c\\
+d & e & f\\
+g & h & l
+\end{vmatrix}
+=-%
+\begin{vmatrix}
+c & b & a\\
+f & e & d\\
+l & h & g
+\end{vmatrix}
+$
+
+\begin{center}
+\textsf{\bigskip Corollary to Proposition II.}
+\end{center}
+
+\textsf{If, in a square Block, a row, or a column, be made to pass over the
+next r rows, or columns, either way: the Determinant of the new Block has the
+same sign as that of the first, or the opposite sign, according as r is even
+or odd: that is, it is equal to the Determinant of the first Block multiplied
+by }$\mathsf{(-1)}^{r}.$ \textsf{For this may be effected by interchanging it
+with each of these r rows, or columns, in turn; and after one such
+interchange, the sign of the Determinant is changed, after two, it is the same
+sign again, and so on.}
+
+\bigskip\textsf{Footnote for the Corollary to Proposition II:}
+
+\textsf{Thus the Determinant }$%
+\begin{vmatrix}
+a & b & c\\
+d & e & f\\
+g & h & k
+\end{vmatrix}
+$\textsf{ = - }$%
+\begin{vmatrix}
+b & a & c\\
+e & d & f\\
+h & g & k
+\end{vmatrix}
+$\textsf{ , where the first column has been passed over one column: but the
+same Determinant }$%
+\begin{vmatrix}
+a & b & c\\
+d & e & f\\
+g & h & k
+\end{vmatrix}
+$\textsf{= +}$%
+\begin{vmatrix}
+b & c & a\\
+e & f & d\\
+h & k & g
+\end{vmatrix}
+$\textsf{, where the first column has been passed over two columns.}%
+
+%TCIMACRO{\TeXButton{TeX field}{\sep}}%
+%BeginExpansion
+\sep
+%EndExpansion
+
+
+The corollary tells us that the right side determinant of Dodgson's $5\times5$
+matrix given above is equal to $(-1)^{4}$ times the determinant show on the
+left side of the same example. This comes from the four row swaps to get the
+top row of the original matrix on the left hand side to the bottom row of the
+starting matrix on the right hand side. Since $(-1)^{4}=1$ the two
+determinants are the same.
+
+\section{Bibliography}
+
+\begin{flushleft}
+[1] Dodgson, Charles, 1867, \textit{Elementary Treatise on Determinants with
+the Applications to Simultaneous Linear Equations and Algebraical Geometry},
+MacMillan and Co, London.
+
+\bigskip
+
+[2] Dodgson, Charles, 1867, \textquotedblleft Condensation of Determinants,
+Being a New and Brief Method for Computing their Arithmetical
+Values,\textquotedblright\ \textit{Proceedings of the Royal Society of
+London}, Vol 15 (1866-1867), Royal Society, London.
+
+\bigskip
+
+[3] Kangshen, Shen, John Crossley and Anthony Lun, 1999, \textit{The Nine
+Chapters on the Mathematical Art: Companion and Commentary, }Oxford University
+Press,\ Oxford, UK.\textit{ }
+
+\bigskip
+
+[4] O'Connor J.J and E F Robertson, 2002, \textquotedblleft Charles Lutwidge
+Dodgson,\textquotedblright\ http://www-history.mcs.st-and.ac.uk/history/Biographies/Dodgson.html
+
+\bigskip
+
+[5] O'Connor J.J and E. F. Robertson, 2005, \textquotedblleft James Joseph
+Sylvester,\textquotedblright\ http://www-history.mcs.st-and.ac.uk/history/Biographies/Sylvester.html
+
+\bigskip
+
+[6] O'Connor J.J and E. F. Robertson, 1996, \textquotedblleft Matrices and
+Determinants,\textquotedblright\ http://www-history.mcs.st-and.ac.uk/history/HistTopics/Matrices\_and\_determinants.html
+
+\bigskip
+
+[7] Rice, Adrian and Eve Torrence, 2007, \textquotedblleft`Shuttling up like a
+telescope': Lewis Carroll's `Curious' Condensation Method for Evaluating
+Determinants,\textquotedblright\ \textit{College Mathematics Journal}, Vol.
+38, No 2, March 2007, Mathematical Association of America, Providence, RI.
+
+\bigskip
+
+[8] Stedall, Jacqueline, 2008, \textit{Mathematics Emerging A Sourcebook}
+1540-1900, Oxford University Press, New York, NY.
+
+\bigskip
+
+[9] Todhunter, Isaac, 1861, \textit{An Elementary Treatise on the Theory of
+Equations}, MacMillian \& Co., London.
+
+\bigskip
+
+[10] Wilson, Robin, 2008, \textit{Lewis Carroll in Numberland: His Fantastical
+Mathematical Logical Life}, W. W. Norton \& Co, New York, NY.
+\end{flushleft}
+
+\bigskip
+
+\newpage
+
+\section*{Notes to the Instructor}
+
+This project in the computation of determinants was designed to be
+incorporated into the middle of a sophomore level linear algebra course. The
+project assumes that students have learned a limited amount about linear
+systems and their connection to augmented matrices. It also assumes that they
+have used basic row reduction to solve systems of equations. In addition,
+students should have seen simple matrix computations and have experimented
+with computing matrix inverses. By the time that students encounter the
+material in this project they should know that the system of equations
+
+\begin{center}
+$ax_{1}$ $+bx_{2}=u_{1}$
+
+$cx_{1}+dx_{2}=u_{2}$
+\end{center}
+
+\noindent can be written as the matrix equation $%
+\begin{bmatrix}
+a & b\\
+c & d
+\end{bmatrix}%
+\begin{bmatrix}
+x_{1}\\
+x_{2}%
+\end{bmatrix}
+$ = $%
+\begin{bmatrix}
+u_{1}\\
+u_{2}%
+\end{bmatrix}
+$ which we denote as $\mathbf{Ax=u}$, that $\mathbf{Ax=u}$ has a solution if
+and only if the matrix $A$ is invertible, and the solution is\textbf{
+}$\mathbf{x=A}^{-1}\mathbf{u}$. They should also have enough experience to
+know that computing an inverse can be time consuming and that it would be
+useful to have an easy test of whether or not a matrix is invertible.
+
+This project is meant to be used as an alternative to traditional textbook
+approaches to teaching students how to compute the determinant. In the course
+of completing this project, the students will read Cauchy's explanation of how
+to compute the determinant (the standard method) as well as learning Dodgson's
+efficient method of condensation. Most students appreciate the efficiency of
+Dodgson's rarely taught method and they enjoy the connection with Lewis Carroll.
+
+Lower division students often need to be taught to slow down and read
+carefully when encountering mathematical texts. One of the goals of this
+project is to have students wrestle with somewhat unfamiliar language and
+symbols so that they begin to develop good mathematical habits. These habits
+include reading the text slowly, reading the text more than once, making
+marginal notes as they begin to understand the text, looking for gaps, and
+filling in missing steps. Many of the exercises encourage that type of reading
+and explicitly ask students to fill in steps.
+
+This project typically takes one week of class time. It can be given out as an
+individual assignment but is well suited to being used as a small group
+project. Students appear to be more successful in extracting meaning from
+unfamiliar mathematical language when working with a partner. It is
+particularly effective if the class time for the week in which the project is
+assigned is devoted to group work on the project so that the professor can
+provide assistance as needed and the class can collectively discuss some of
+the more challenging parts of the project such as trying to extend Cauchy's
+method to the $4\times4$ case (Exercise 2.3). There is generally a vigorous
+class conversation about the details of the computations in Exercise 3.4 and
+3.8 (large condensations).
+
+Certainly one question that arises in working on this project is "Why does
+Dodgson's method yield the same determinant as the familiar method?" The
+project does not attempt to answer that question on a theoretical level, but
+Exercise 3.6 asks students to compute the $3\times3$ determinant for a matrix
+of variables using both methods and then compare the algebraic output.
+\textquotedblleft`Shuttling up like a telescope': Lewis Carroll's `Curious'
+Condensation Method for Evaluating Determinants,\textquotedblright\ [7] does
+include a proof and is a good supplemental reading for this project.
+
+
+\end{document}
