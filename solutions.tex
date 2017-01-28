@@ -1,0 +1,64 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+
+\title{Project 1}
+\author{Yong Hoon Do, Chanyang Yim, Dongwook Kim}
+\date{\today}
+
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{systeme}
+\usepackage{chngcntr}
+
+\counterwithin*{equation}{section}
+\counterwithin*{equation}{subsection}
+
+\newcommand{\sol} {
+  \textbf{Solution:}
+}
+
+\begin{document}
+
+\maketitle
+
+%--------------------------------------------------------------------------------
+\section{\bigskip\vspace{0in}\vspace{-0.1in}Exercise 1}
+
+\noindent\textbf{Exercise 1.1} Set up a system of linear equations based on
+this problem from the \textit{Nine Chapters on the Mathematical Art}.
+
+\bigskip
+
+The text then shows three columns set up on a counting board (a tool for
+mathematical calculation) in the following manner:
+
+\bigskip
+
+The given augmented matrix is:
+
+\[
+  \begin{array}{cccc}
+    1 & 2 & 3 \\
+    2 & 3 & 2 \\
+    3 & 1 & 1 \\
+    26 & 34 & 39 \\
+  \end{array}
+\]
+
+\sol
+
+Setting the system of linear equations:
+
+\begin{equation}
+  \begin{array}{cccc}
+    3x_1 + 2x_2 + x_3 = 39 \\
+    2x_1 + 3x_2 + x_3 = 34 \\
+    x_1 + 2x_2 + 3x_3 = 26 \\
+  \end{array}
+\end{equation}
+
+%--------------------------------------------------------------------------------
+
+
+\end{document}

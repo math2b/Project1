@@ -37,6 +37,7 @@
 
 ## Build tool auxiliary files:
 *.b_latexmk
+*.fdb_latexmk
 *.synctex
 *.synctex(busy)
 *.synctex.gz
