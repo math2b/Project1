@@ -312,18 +312,175 @@ simultaneous linear equations using the variables A, B and C.
 
 \bigskip
 
-\sol
+\begin{minipage}{0.45\textwidth}
+ 	\begin{center}
+ 	  Borrel's language
+ 	\end{center}
+	\[
+    	\begin{array}{ccccc}
+		3A & 1B & 1C & [42 & 1ST\\
+		1A & 4B & 1C & [32 & 2ST\\
+		1A & 1B & 5C & [40 & 3ST\\
+		\end{array}
+    \]
+    \[
+    	\begin{array}{cccc}
+		3A & 12B & 3C & [96 \\
+		3A & 1B & 1C & [42 \\
+		   & 11B & 2C & [54 \\
+		\end{array}
+    \]
+    \[
+    	\begin{array}{cccc}
+		3A & 3B & 15C & [120 \\
+		3A & 1B & 1C & [42 \\
+		   & 2B & 14C & [78 \\
+		\end{array}
+    \]
+    \[
+    	\begin{array}{cccc}
+			& 22B & 154C & [858 \\
+		    & 22B & 4C & [108 \\
+		   	&	 & 150C & [750 \\
+		\end{array}
+    \]
+\end{minipage}%
+\hfill
+\begin{minipage}{0.45\textwidth}
+	\begin{center}
+    System of simultaneous linear equations
+  \end{center}
+    \[
+    	\begin{array}{c}
+		3A + 1B + 1C = 42 \\
+        1A + 4B + 1C = 32 \\
+        1A + 1B + 5C = 40 \\
+		\end{array}
+    \]
+    \[
+    	\begin{array}{c}
+		3A + 12B + 3C = 42 \\
+        3A + 1B + 1C = 42 \\
+             11B + 2C = 54 \\
+		\end{array}
+    \]
+    \[
+    	\begin{array}{c}
+		3A + 3B + 15C = 120 \\
+        3A + 1B + 1C = 42 \\
+             2B + 14C = 78 \\
+		\end{array}
+    \]
+    \[
+    	\begin{array}{c}
+		22B + 154C = 858 \\
+        22B + 4C = 108\\
+             150C = 750 \\
+		\end{array}
+    \]
+\end{minipage}%
 
-\begin{center}%
-\begin{tabular}
-[c]{lllll}%
-\textsf{3A} & \textsf{1B} & \textsf{1C} & \textsf{[42} & \textsf{1ST}\\
-\textsf{1A} & \textsf{4B} & \textsf{1C} & \textsf{[32} & \textsf{2ND}\\
-\textsf{1A} & \textsf{1B} & \textsf{5C} & \textsf{[40} & \textsf{3RD}%
-\end{tabular}
-\end{center}
 
-Since the
+ \noindent\textbf{Exercise 1.6} Verify that Borrel's solution is correct.
+\bigskip
+
+We can verify Borrel's solution using RREF.
+
+\bigskip
+To express matrix form from Borrel's language
+\[
+\begin{bmatrix}
+3 & 1 & 1 & 42 \\
+1 & 4 & 1 & 32 \\
+1 & 1 & 5 & 40 \\
+\end{bmatrix}
+\]
+
+first with j=1,
+
+\[
+\xrightarrow[]{\text{$R\textsubscript{1} \leftrightarrow  R\textsubscript{3}$~}}
+    \begin{bmatrix}
+		1 & 1 & 5 & 40 \\
+        1 & 4 & 1 & 32 \\
+        3 & 1 & 1 & 42 \\
+	\end{bmatrix}
+\xrightarrow[]{\text{$-R\textsubscript{1} + R\textsubscript{2}$~}}
+    \begin{bmatrix}
+    	1 & 1 & 5 & 40 \\
+        0 & 3 & -4 & -8 \\
+        3 & 1 & 1 & 42 \\
+	\end{bmatrix}
+\xrightarrow[]{\text{$-3R\textsubscript{1} + R\textsubscript{3}$~}}
+    \begin{bmatrix}
+    	1 & 1 & 5 & 40 \\
+        0 & 3 & -4 & -8 \\
+        0 & -2 & -14 & -78 \\
+	\end{bmatrix}
+\]
+
+Now, with j = 2,
+\[
+\xrightarrow[]{\text{$R\textsubscript{2} \leftrightarrow -\frac{1}{2}\textsubscript{3}$~}}
+    \begin{bmatrix}
+    	1 & 1 & 5 & 40 \\
+        0 & 1 & 7 & 39 \\
+        0 & 3 & -4 & -8 \\
+	\end{bmatrix}
+\xrightarrow[]{\text{$-3R\textsubscript{2} + R\textsubscript{3}$~}}
+	\begin{bmatrix}
+    	1 & 1 & 5 & 40 \\
+        0 & 1 & 7 & 39 \\
+        0 & 0 & -25 & -125 \\
+	\end{bmatrix}
+\xrightarrow[]{\text{$-R\textsubscript{2} + R\textsubscript{1}$~}}
+    \begin{bmatrix}
+    	1 & 0 & -2 & 1 \\
+        0 & 1 & 7 & 39 \\
+        0 & 0 & -25 & -125 \\
+	\end{bmatrix}
+\]
+
+And finally, with j = 3,
+
+\[
+\xrightarrow[]{\text{$-\frac{1}{25}R\textsubscript{3}$~}}
+    \begin{bmatrix}
+    	1 & 0 & -2 & 1 \\
+        0 & 1 & 7 & 39 \\
+        0 & 0 & 1 & 5 \\
+	\end{bmatrix}
+\xrightarrow[]{\text{$7R\textsubscript{3} + R\textsubscript{2}$~}}
+    \begin{bmatrix}
+    	1 & 0 & -2 & 1 \\
+        0 & 1 & 0 & 4 \\
+        0 & 0 & 1 & 5 \\
+	\end{bmatrix}
+\xrightarrow[]{\text{$2R\textsubscript{3} + R\textsubscript{1} $~}}
+    \begin{bmatrix}
+    	1 & 0 & 0 & 11 \\
+        0 & 1 & 0 & 4 \\
+        0 & 0 & 1 & 5 \\
+	\end{bmatrix}
+\]
+
+Thus,
+\[
+  \begin{bmatrix}
+    	1 & 0 & 0 & 11 \\
+        0 & 1 & 0 & 4 \\
+        0 & 0 & 1 & 5 \\
+	\end{bmatrix}
+\]
+
+This RREF tells the system of equations,
+
+\[A = 11\]
+\[B = 4\]
+\[C = 5\]
+
+Since this system of equations and Borrel's solution are same,
+Borrel's solution is correct.
 
 \bigskip
 
