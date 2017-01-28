@@ -18,6 +18,22 @@
   \textbf{Solution:}
 }
 
+\newcommand{\A} {
+\mathbf{A}
+}
+
+\newcommand{\B} {
+\mathbf{B}
+}
+
+\newcommand{\C} {
+\mathbf{C}
+}
+
+\newcommand{\RREF} {Reduced Row-Echelon Form}
+
+\newcommand{\REMM} {Row-Equivalent Matrices}
+
 \begin{document}
 
 \maketitle
@@ -73,12 +89,12 @@ Setting the augmented matrix found in the \bigskip\noindent\textbf{Exercise 1.1}
     2 & 3 & 1 & 34 \\
     1 & 2 & 3 & 26 \\
   \end{array}
-  \right|
+\right|
 \]
 
 The major difference between the matrices is the order how the numbers are listed. According to the book \textit{Nine Chapters on the Mathematical Art}, they vertically
 listed up the variables and created a matrix in this same fashion. The way how seprating the coefficient variables is also
-following their writing order; from right to left and top to bottom. As this way of writing order developed during Han Dynasty,
+following their writing order; from right to left and top to bottom. As this way of writing order used during Han Dynasty,
 creating matrix also followed the same method that they used for writing chiense letters.
 
 
@@ -87,5 +103,108 @@ creating matrix also followed the same method that they used for writing chiense
 \bigskip\noindent\textbf{Exercise 1.3} Use row operations to get your
 augmented matrix from Exercise 1.2 into row-echelon form and solve the system
 of equations.
+
+\bigskip
+
+%--------------------------------------------------------------------------------
+\noindent\textbf{Exercise 1.4} Notice that the methods used in the
+\textit{Nine Chapters} are very similar to our modern approach to solving a
+system of equations. Verify that the solution that you obtained in Exercise
+1.3 is the same as the solution obtained when solving the equations given by
+the columns on the counting board shown below Exercise 1.3.
+
+\bigskip
+
+\sol
+
+The given first counting board found in the Exercise 1.1 is as follows,
+
+\[
+\begin{array}{ccc}
+  1 & 2 & 3 \\
+  2 & 3 & 2 \\
+  3 & 1 & 1 \\
+  26 & 34 & 39 \\
+\end{array}
+\]
+
+and we will call it as \(\A\) which is written in an aumented matrix
+
+\[
+\A=
+\left|
+  \begin{array}{cccc}
+    3 & 2 & 1 & 39 \\
+    2 & 3 & 1 & 34 \\
+    1 & 2 & 3 & 26 \\
+  \end{array}
+\right|
+\]
+
+
+The given second counting board found in the Exercise 1.3 is as follows,
+
+\[
+\begin{array}{ccc}
+  0 & 0 & 3 \\
+  0 & 5 & 2 \\
+  36 & 1 & 1 \\
+  99 & 24 & 39 \\
+\end{array}
+\]
+
+and we will call it as \(\B\) which is written in an aumented matrix
+
+\[
+\mathbf{B}=
+\left|
+  \begin{array}{cccc}
+    3 & 2 & 1 & 39 \\
+    0 & 5 & 1 & 24 \\
+    0 & 0 & 36 & 99 \\
+  \end{array}
+  \right|
+\]
+
+According to the definition of \REMM,
+we can transform the augmented matrices \(\A\) and \(\B\) into \RREF
+
+\[
+\A=
+\left|
+  \begin{array}{cccc}
+    3 & 2 & 1 & 39 \\
+    2 & 3 & 1 & 34 \\
+    1 & 2 & 3 & 26 \\
+  \end{array}
+\right|
+\xrightarrow[]{\text{RREF}}
+\left|
+\begin{array}{cccc}
+  $\boxed{1}$~ & 0 & 1 \\
+  0 & $\boxed{1}$~ & 1 \\
+  0 & 0 & 0 \\
+\end{array}
+\right|
+\]
+
+\[
+\B=
+\left|
+  \begin{array}{cccc}
+    3 & 2 & 1 & 39 \\
+    0 & 5 & 1 & 24 \\
+    0 & 0 & 36 & 99 \\
+  \end{array}
+\right|
+\xrightarrow[]{\text{RREF}}
+\left|
+\begin{array}{cccc}
+  $\boxed{1}$~ & 0 & 1 \\
+  0 & $\boxed{1}$~ & 1 \\
+  0 & 0 & 0 \\
+\end{array}
+\right|
+\]
 
 \end{document}
