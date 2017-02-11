@@ -45,6 +45,19 @@
 \newcommand{\p} {$\boxed{1}$~}
 \newcommand*\Domain[1]{\in\mathbb{C}^{#1}}
 
+\newcommand{\matx}[1] {
+\begin{bmatrix}
+  #1 \\
+\end{bmatrix}
+}
+
+\newcommand{\matxx}[2] {
+\begin{bmatrix}
+  #1 \\
+  #2 \\
+\end{bmatrix}
+}
+
 \newcommand{\matxxx}[3] {
 \begin{bmatrix}
   #1 \\
@@ -793,5 +806,375 @@ are complemental to each other.
 \end{Bmatrix}
 \)
 are complemental to each other.
+
+\bigskip
+\noindent\textbf{Exercise 3.2} Use Dodgson's definition to find the
+determinants via minors of the matrices (note b and c appear as part of his
+footnote for the Corollary to Proposition I):
+
+a. $%
+\begin{bmatrix}
+-2 & 3 & 0\\
+1 & 2 & -1\\
+-2 & 3 & 1
+\end{bmatrix}
+$
+
+b. $%
+\begin{bmatrix}
+4 & 2 & 3\\
+3 & 3 & 2\\
+4 & 1 & 3
+\end{bmatrix}
+$
+
+c. $\left[
+\begin{array}
+[c]{ccc}%
+4 & 5 & 3\\
+3 & 1 & 2\\
+4 & 2 & 3
+\end{array}
+\right]  $
+
+\bigskip
+
+\sol
+
+a. 
+
+\(-2 \matxx{2 & 1}{3 & 1} -3 \matxx{1 & -1}{-2 & 1} + 0 \matxx{1 &2}{-2 &3}\)
+
+\(=-2 \matx{2 + 3} -3 \matx{1 - 2} + 0\matx{3 + 4}\)
+
+\(= -10 + 3 + 0\)
+
+\(= -7 \)
+
+\bigskip
+b.
+
+\(4 \matxx{3 & 2}{1 & 3} -2 \matxx{3 & 2}{4 & 3} + 3 \matxx{3 &3}{4 &1}\)
+
+\(=4 \matx{9 - 2} -2 \matx{9 - 8} + 3\matx{3 - 12}\)
+
+\(= 28 - 2 - 27\)
+
+\(= -1 \)
+
+\bigskip
+c.
+
+\(4 \matxx{1 & 2}{2 & 3} -5 \matxx{3 & 2}{4 & 3} + 3 \matxx{3 &1}{4 &2}\)
+
+\(=4 \matx{3 - 4} -5 \matx{9 - 8} + 3\matx{6 - 4}\)
+
+\(= -4 - 5 + 6\)
+
+\(= -3 \)
+
+
+\bigskip
+\noindent\textbf{Exercise 3.3} Now finish his computations for the 4x4 matrix
+in his footnotes for Proposition I, Corollary 1, and get a numerical value for
+that determinant.
+\[
+\matxxxx{3&1&2&4}
+		{4&5&2&3}
+       	{3&1&3&2}
+        {4&2&1&3}
+\]
+
+
+\bigskip
+\sol
+
+0. minor: 3
+\[
+\matxxx{5&2&3}
+		{1&3&2}
+        {2&1&3}
+\]
+\[\Rightarrow 66\]
+
+
+\bigskip
+1. minor: 1
+\[
+\matxxx{4&2&3}
+		{3&3&2}
+        {4&1&3}
+\]
+\[
+\Rightarrow
+1\matx
+	{
+		4\matxx{3&2}{1&3}
+		-2\matxx{3&2}{4&3}
+		+3\matxx{3&3}{4&1}
+	}
+\]
+\[
+=
+1\matx
+	{
+    	4\matx{9-2}
+        -2\matx{9-8}
+        +3\matx{3-12}
+	}
+\]
+\[
+=
+1\matx
+	{
+    	28-2-27
+    }
+\]
+\[
+=-1
+\]
+
+\bigskip
+2. minor: 2
+\[
+\matxxx{4&5&3}
+		{3&1&2}
+        {4&2&3}
+\]
+\[
+\Rightarrow
+2\matx
+	{
+		4\matxx{1&2}{2&3}
+		-5\matxx{3&2}{4&3}
+		+3\matxx{3&1}{4&2}
+	}
+\]
+\[
+=
+2\matx
+	{
+    	4\matx{3-4}
+        -5\matx{9-8}
+        +3\matx{6-4}
+	}
+\]
+\[
+=
+2\matx
+	{
+    	-4 -5 + 6
+    }
+\]
+\[
+=-6
+\]
+
+\bigskip
+3. minor: 4
+\[
+\matxxx{4&3&2}
+		{3&1&3}
+        {4&2&1}
+\]
+\[
+\Rightarrow
+4\matx
+	{
+		4\matxx{1&3}{2&1}
+		-5\matxx{3&3}{4&1}
+		+2\matxx{3&1}{4&2}
+	}
+\]
+\[
+=
+4\matx
+	{
+    	4\matx{1-6}
+        -5\matx{3-12}
+        +2\matx{6-4}
+	}
+\]
+\[
+=
+4\matx
+	{
+    	-20 + 45 + 4
+    }
+\]
+\[
+=116
+\]
+
+Therefore,
+\[66 - (-1) + (-6) - (116) = -55\]
+
+\bigskip
+\noindent\textbf{Exercise 3.4} The example of the algorithm that Dodgson
+provides in \textquotedblleft Condensation of Determinants, Being a New and
+Brief Method for Computing their Arithmetical Values\textquotedblright\ [2] is
+given below. \ Use Dodgson's description of the algorithm and Wilson's example
+to assist you in calculating each step of Dodgson's example. \ Dodgson's
+intermediate matrices allow you to check your work.%
+
+\[
+\matxxxx{3&1&2&4}
+		{4&5&2&3}
+        {3&1&3&2}
+        {4&2&1&3}
+\]
+
+\bigskip
+\sol
+\[
+=
+\matxxx
+	{\matxx{3&1}{4&5} & \matxx{1&2}{5&2} & \matxx{2&4}{2&3}}
+    {\matxx{4&5}{3&1} & \matxx{5&2}{1&3} & \matxx{2&3}{3&2}}
+    {\matxx{3&1}{4&2} & \matxx{1&3}{2&1} & \matxx{3&2}{1&3}}
+\]
+\[
+=
+\matxxx
+	{11 & -8 & -2}
+    {-11 & 13 & -5}
+    {2 & -5 & 7}
+\]
+\[
+=
+\matxx
+	{\frac{1}{5}\matxx{11&-8}{-11&13} & \frac{1}{2}\matxx{-8&-2}{13&-5}}
+    {\frac{1}{1}\matxx{-11&13}{2&-5} & \frac{1}{3}\matxx{13&-5}{-5&7}} \]
+\[
+\matxx{11 & 33}{29 & 22}
+\]
+\[
+=(11*22) - (33 * 29)
+\]
+\[
+= - 715
+\]
+
+\bigskip
+\noindent\textbf{Exercise 3.5} Try using the method of condensation to find
+the following determinants.
+
+\bigskip
+a. $%
+\begin{bmatrix}
+-2 & 3 & 0\\
+1 & 2 & -1\\
+-2 & 3 & 1
+\end{bmatrix}
+$
+
+b. $%
+\begin{bmatrix}
+5 & 2 & 3\\
+1 & 3 & 2\\
+2 & 1 & 3
+\end{bmatrix}
+$
+
+c. $%
+\begin{bmatrix}
+3 & 1 & 2 & 4\\
+4 & 5 & 2 & 3\\
+3 & 1 & 3 & 2\\
+4 & 2 & 1 & 3
+\end{bmatrix}
+$
+
+\bigskip
+\sol
+
+\bigskip
+
+a. 
+\(
+\matxxx{-2&3&0}
+		{1&2&-1}
+		{-2&3&1}
+\)
+
+\[
+=
+\matxx
+	{\matxx{-2&3}{1&2} & \matxx{3&0}{2&-1}}
+    {\matxx{1&2}{-2&3} & \matxx{2&-1}{3&1}} 
+\]
+\[
+\matxx{-7 & -3}
+		{7 & 5}
+\]
+\[
+=-35 - (-21)
+\]
+\[=-14\]
+\[=\frac{-14}{2}\]
+\[-7\]
+
+b. 
+\(
+\matxxx{5&2&3}
+		{1&3&2}
+		{2&1&3}
+\)
+
+\[
+=
+\matxx
+	{\matxx{5&2}{1&3} & \matxx{2&3}{3&2}}
+    {\matxx{1&3}{2&1} & \matxx{3&2}{1&3}} 
+\]
+\[
+\matxx{13 & -5}
+		{-5 & 7}
+\]
+\[
+=(13 * 7) - (25)
+\]
+\[=66\]
+\[=\frac{66}{3}\]
+\[=22\]
+
+c. 
+\(
+\matxxxx{3&1&2&4}
+		{4&5&2&3}
+		{3&1&3&2}
+        {4&2&1&3}
+\)
+
+\[
+=
+\matxxx
+	{\matxx{3&1}{4&5} & \matxx{1&2}{5&2} & \matxx{2&4}{2&3}}
+    {\matxx{4&5}{3&1} & \matxx{5&2}{1&3} & \matxx{2&3}{3&2}}
+    {\matxx{3&1}{4&2} & \matxx{1&3}{2&1} & \matxx{3&2}{1&3}}
+\]
+\[
+=
+\matxxx
+	{11 & -8 & -2}
+    {-11 & 13 & -5}
+    {2 & -5 & 7}
+\]
+\[
+=
+\matxx
+	{\frac{1}{5}\matxx{11&-8}{-11&13} & \frac{1}{2}\matxx{-8&-2}{13&-5}}
+    {\frac{1}{1}\matxx{-11&13}{2&-5} & \frac{1}{3}\matxx{13&-5}{-5&7}} \]
+\[
+\matxx{11 & 33}{29 & 22}
+\]
+\[
+=(11*22) - (33 * 29)
+\]
+\[
+= - 715
+\]
+\[=\frac{-715}{13}\]
+\[=-55\]
 
 \end{document}
