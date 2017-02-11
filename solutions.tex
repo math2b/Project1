@@ -45,6 +45,19 @@
 \newcommand{\p} {$\boxed{1}$~}
 \newcommand*\Domain[1]{\in\mathbb{C}^{#1}}
 
+\newcommand{\matx}[1] {
+\begin{bmatrix}
+  #1 \\
+\end{bmatrix}
+}
+
+\newcommand{\matxx}[2] {
+\begin{bmatrix}
+  #1 \\
+  #2 \\
+\end{bmatrix}
+}
+
 \newcommand{\matxxx}[3] {
 \begin{bmatrix}
   #1 \\
@@ -784,5 +797,71 @@ are complemental to each other.
 \end{Bmatrix}
 \)
 are complemental to each other.
+
+\bigskip
+\noindent\textbf{Exercise 3.2} Use Dodgson's definition to find the
+determinants via minors of the matrices (note b and c appear as part of his
+footnote for the Corollary to Proposition I):
+
+a. $%
+\begin{bmatrix}
+-2 & 3 & 0\\
+1 & 2 & -1\\
+-2 & 3 & 1
+\end{bmatrix}
+$
+
+b. $%
+\begin{bmatrix}
+4 & 2 & 3\\
+3 & 3 & 2\\
+4 & 1 & 3
+\end{bmatrix}
+$
+
+c. $\left[
+\begin{array}
+[c]{ccc}%
+4 & 5 & 3\\
+3 & 1 & 2\\
+4 & 2 & 3
+\end{array}
+\right]  $
+
+\bigskip
+
+\sol
+
+a. 
+
+\(-2 \matxx{2 & 1}{3 & 1} -3 \matxx{1 & -1}{-2 & 1} + 0 \matxx{1 &2}{-2 &3}\)
+
+\(=-2 \matx{2 + 3} -3 \matx{1 - 2} + 0\matx{3 + 4}\)
+
+\(= -10 + 3 + 0\)
+
+\(= -7 \)
+
+\bigskip
+b.
+
+\(4 \matxx{3 & 2}{1 & 3} -2 \matxx{3 & 2}{4 & 3} + 3 \matxx{3 &3}{4 &1}\)
+
+\(=4 \matx{9 - 2} -2 \matx{9 - 8} + 3\matx{3 - 12}\)
+
+\(= 28 - 2 - 27\)
+
+\(= -1 \)
+
+\bigskip
+c.
+
+\(4 \matxx{1 & 2}{2 & 3} -5 \matxx{3 & 2}{4 & 3} + 3 \matxx{3 &1}{4 &2}\)
+
+\(=4 \matx{3 - 4} -5 \matx{9 - 8} + 3\matx{6 - 4}\)
+
+\(= -4 - 5 + 6\)
+
+\(= -3 \)
 
 \end{document}
