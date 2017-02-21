@@ -1,0 +1,356 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{chngcntr}
+\usepackage{mathtools}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\chead{\hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+    \setcounter{equation}{0}
+    \setcounter{thm}{0}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Mini Project}
+\newcommand{\hmwkDueDate}{}
+\newcommand{\hmwkClass}{}
+\newcommand{\hmwkClassTime}{Uncle Bill}
+\newcommand{\hmwkClassInstructor}{}
+\newcommand{\hmwkAuthorName}{\textbf{Yong Hoon Do}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass\ \hmwkTitle}}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\newcommand{\ls} {\(\mathcal{LS}(A,\textbf{0})\)}
+\newcommand{\nullspace}[1]{\mathcal{N}(#1)}
+\newcommand{\p} {$\boxed{1}$~}
+\newcommand*\Domain[1]{\in\mathbb{C}^{#1}}
+
+\newtheorem{thm}{Theorem}
+\counterwithin*{equation}{section}
+\counterwithin*{equation}{subsection}
+
+\newcommand{\matxx}[2] {
+\begin{bmatrix}
+  #1 \\
+  #2 \\
+\end{bmatrix}
+}
+
+\newcommand{\matxxx}[3] {
+\begin{bmatrix}
+  #1 \\
+  #2 \\
+  #3 \\
+\end{bmatrix}
+}
+
+\newcommand{\matxxxx}[4] {
+\begin{bmatrix}
+  #1 \\
+  #2 \\
+  #3 \\
+  #4 \\
+\end{bmatrix}
+}
+\newcommand{\matxxxxx}[5] {
+\begin{bmatrix}
+  #1 \\
+  #2 \\
+  #3 \\
+  #4 \\
+  #5 \\
+\end{bmatrix}
+}
+
+\newcommand{\matxxxxxx}[6] {
+\begin{bmatrix}
+  #1 \\
+  #2 \\
+  #3 \\
+  #4 \\
+  #5 \\
+  #6 \\
+\end{bmatrix}
+}
+
+\newcommand{\arrow}[1] {\xrightarrow[]{\text{#1}}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Let \(x_n\) and \(y_n\) be the amounts Nancy is to be given in the \(n^{th}\) week assuming the two choices.
+  Write the formulas which determine the sequences \(x_1, x_2, x_3, \dots\) and \(y_1, y_2, \dots\).
+
+\bigskip
+
+\textbf{Solution}
+
+This is for the first option
+\begin{equation}
+  x_n =
+  \begin{cases}
+    0 & \mbox{if } n = 1 \\
+    0.01 & \mbox{if } n = 2 \\
+    5x_{n-1} - 6x_{n-2} & \mbox{where } n > 3
+  \end{cases} \\
+\end{equation}
+
+This is for the second option
+\begin{equation}
+  y_n =
+  \begin{cases}
+    0 & \mbox{if } n = 1 \\
+    1 & \mbox{if } n = 2 \\
+    x_{n-1} + x_{n-2} & \mbox{where } n > 3
+  \end{cases}
+\end{equation}
+
+\bigskip
+
+Based on the formulas that we found, we get
+\begin{equation}
+  \begin{matrix}
+    x_1 = 0 \\
+    x_2 = 0.01 \\
+    x_3 = 0.05 \\
+    x_4 = 0.19 \\
+    \vdots \\
+    x_n = 5x_{n-1} - 6x_{n-2}
+  \end{matrix}
+\end{equation}
+
+The second option is actually Fibonacci series pattern
+\begin{equation}
+  \begin{matrix}
+    y_1 = 0 \\
+    y_2 = 1 \\
+    y_3 = 1 \\
+    y_4 = 2 \\
+    y_5 = 3 \\
+    y_6 = 5 \\
+    \vdots \\
+    y_n = x_{n-1} + x_{n-2}
+  \end{matrix}
+\end{equation}
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Consider first Nancy's first option.
+  Instead of paying no money the first week and one cent the
+  second week, Bill could have started by paying any amount the
+  first week and any other amount the second week and then continued
+  according to his plan.  For each choice of amounts
+  paid the first two weeks one would obtain a sequence. Show
+  that the set of all such sequences forms a vector space.
+
+  \bigskip
+
+  \textbf{Solution}
+
+  Since we defined first option as \(x_n = 5x_{n-1} - 6x_{n-2}\),
+  we can set any value for the first two terms.
+
+  \bigskip
+
+  One is given by the uncle Bill, so we get
+
+  \[
+    u_1 = (0,1,5,19,\dots)
+  \]
+
+  We may set the first two terms like \(0\) and \(1\) and we get
+
+  \[
+    u_2 = (1,0,-6,-30,-114,\dots)
+  \]
+
+\bigskip
+
+  The problem is asking if all such sequences forms a vector space.
+  According to the definition of \textbf{Vector Space}, we should know that
+  all such sequences forms a vector space
+  if \(\mathbf{u_1}\) and \(\mathbf{u_2}\) can be defined by ten properties of vector space.
+
+\bigskip
+
+  I will let \(V\) be a real vector space of all real sequences
+  (we are limiting the vector space to a real number because we are dealing with the money)
+
+  \begin{equation}
+    (a_i)^{\infty}_{i=1} = (a_1, a_2, \dots)
+  \end{equation}
+
+  Then we let \(U\) be the subspace of \(V\) consisting of all real sequences that satisfy the linear recurrence relation
+  \(x_n - 5x_{n-1} + 6x_{n-2} = 0\) for \(n = 1,2,\dots\).
+
+  Now, setting \(\mathbf{u_1}\) and \(\mathbf{u_2}\) are clear that these vectors are in \(U\).
+
+  \begin{equation}
+    \begin{aligned}[left]
+      \mathbf{u_1} = (0,1,5,19,\dots) \\
+      \mathbf{u_2} = (1,0,-6,-30,-114,\dots) \\
+    \end{aligned}
+  \end{equation}
+
+\bigskip
+
+\setcounter{equation}{0}
+
+Showing ten properties of \textbf{Vector Space} in \(U\)
+  \begin{enumerate}
+    \item Additive Closure
+    \begin{equation}
+      \begin{split}
+        \mathbf{u_1} + \mathbf{u_2} \in U \\
+        (0,1,5,19,\dots) + (1,0,-6,-30,\dots) \in U \\
+        (1,1,-1,-11,\dots) \in U
+      \end{split}
+    \end{equation}
+    \item Scalar Closure
+    \item Commutativity
+    \item Additive Associativity
+    \item Zero Vector
+    \item Additive Inverses
+    \item Scalar Multiplication Associativity
+    \item Distributivity across Vector Addition
+    \item Distributivity across Scalar Addition
+    \item One
+  \end{enumerate}
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Find the dimension of the vector space in Part 2 and prove you are right.
+
+\bigskip
+
+  \textbf{Solution}
+
+
+\end{homeworkProblem}
+
+\end{document}
