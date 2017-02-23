@@ -79,6 +79,14 @@
     \exitProblemHeader{homeworkProblemCounter}
 }
 
+\newenvironment{solutionToProblem} {
+
+  \bigskip
+
+  \textbf{Solution}
+
+}
+
 %
 % Homework Details
 %   - Title
@@ -94,7 +102,7 @@
 \newcommand{\hmwkClass}{}
 \newcommand{\hmwkClassTime}{Uncle Bill}
 \newcommand{\hmwkClassInstructor}{}
-\newcommand{\hmwkAuthorName}{\textbf{Yong Hoon Do}}
+\newcommand{\hmwkAuthorName}{\textbf{}}
 
 %
 % Title Page
@@ -278,13 +286,13 @@ The second option is actually Fibonacci series pattern
   One is given by the uncle Bill, so we get
 
   \[
-    u_1 = (0,1,5,19,\dots)
+    \mathbf{u} = (0,1,5,19,\dots)
   \]
 
   We may set the first two terms like \(0\) and \(1\) and we get
 
   \[
-    u_2 = (1,0,-6,-30,-114,\dots)
+    \mathbf{v} = (1,0,-6,-30,-114,\dots)
   \]
 
 \bigskip
@@ -292,26 +300,21 @@ The second option is actually Fibonacci series pattern
   The problem is asking if all such sequences forms a vector space.
   According to the definition of \textbf{Vector Space}, we should know that
   all such sequences forms a vector space
-  if \(\mathbf{u_1}\) and \(\mathbf{u_2}\) can be defined by ten properties of vector space.
+  if \(\mathbf{u}\) and \(\mathbf{v}\) can be defined by ten properties of vector space.
 
 \bigskip
 
   I will let \(V\) be a real vector space of all real sequences
-  (we are limiting the vector space to a real number because we are dealing with the money)
-
-  \begin{equation}
-    (a_i)^{\infty}_{i=1} = (a_1, a_2, \dots)
-  \end{equation}
-
+  (we are limiting the vector space to a real number because we are only dealing with the money)
   Then we let \(U\) be the subspace of \(V\) consisting of all real sequences that satisfy the linear recurrence relation
   \(x_n - 5x_{n-1} + 6x_{n-2} = 0\) for \(n = 1,2,\dots\).
 
-  Now, setting \(\mathbf{u_1}\) and \(\mathbf{u_2}\) are clear that these vectors are in \(U\).
+  Now, setting \(\mathbf{u}\) and \(\mathbf{v}\) are clear that these vectors are in \(U\).
 
   \begin{equation}
     \begin{aligned}[left]
-      \mathbf{u_1} = (0,1,5,19,\dots) \\
-      \mathbf{u_2} = (1,0,-6,-30,-114,\dots) \\
+      \mathbf{u} = (0,1,5,19,\dots) \\
+      \mathbf{v} = (1,0,-6,-30,-114,\dots) \\
     \end{aligned}
   \end{equation}
 
@@ -322,23 +325,40 @@ The second option is actually Fibonacci series pattern
 Showing ten properties of \textbf{Vector Space} in \(U\)
   \begin{enumerate}
     \item Additive Closure
+    Showing \(\mathbf{u} + \mathbf{v} \in U\),
     \begin{equation}
       \begin{split}
-        \mathbf{u_1} + \mathbf{u_2} \in U \\
-        (0,1,5,19,\dots) + (1,0,-6,-30,\dots) \in U \\
-        (1,1,-1,-11,\dots) \in U
+        \mathbf{u} + \mathbf{v} & = (\mathbf{u}_1, \mathbf{u}_2, \mathbf{u}_3, \dots + \mathbf{u}_n) + (\mathbf{v}_1 + \mathbf{v}_2 + \dots + \mathbf{v}_n) \\
+        & = (\mathbf{u}_1 + \mathbf{v}_1, \mathbf{u}_2 + \mathbf{v}_2, \dots, \mathbf{u}_n + \mathbf{v}_n) \\
+        & = 5(\mathbf{u}_{n-1} + \mathbf{v}_{n-1}) + (-6)(\mathbf{u}_{n-2} + \mathbf{v}_{n-2})
       \end{split}
     \end{equation}
     \item Scalar Closure
-    \item Commutativity
-    \item Additive Associativity
+      \begin{equation}
+        \begin{split}
+          & \alpha\mathbf{u} \in U \\
+          \alpha\mathbf{u} & = \alpha(u_1, u_2, u_3, \dots, u_n) \\
+          & = (\alpha u_1, \alpha u_2, \alpha u_3, \dots, \alpha u_n) \\
+          & = (\alpha u_1, \alpha u_2, \dots, \alpha 5u_{n-1} - \alpha 6u_{n-2})
+        \end{split}
+      \end{equation}
+
     \item Zero Vector
-    \item Additive Inverses
-    \item Scalar Multiplication Associativity
-    \item Distributivity across Vector Addition
-    \item Distributivity across Scalar Addition
-    \item One
+
+    Setting first two terms by zero, then every following terms will be zero. This must be a zero vector \((0, 0, 0, \dots, 0)\). Therefore we obtain
+    \begin{equation}
+      \begin{split}
+        x_n + \mathbf{0} & = x_n \\
+        & = (x_1, x_2, \dots, x_n) + (0, 0, \dots, 0) \\
+        & = (x_1 + 0, x_2 + 0, \dots, x_n + 0) \\
+        & = (x_1, x_2, \dots, x_n)
+      \end{split}
+    \end{equation}
   \end{enumerate}
+
+  Since we showed three of them to see if the sequence is in the vector space, the following properties will be automatically true as a corollary:
+Additive Inverses, Scalar Multiplication Associativity, Distributivity across Vector Addition, Distributivity across Scalar Addition, Commutativity, Additive Associativity and One.
+
 \end{homeworkProblem}
 
 \pagebreak
@@ -350,7 +370,170 @@ Showing ten properties of \textbf{Vector Space} in \(U\)
 
   \textbf{Solution}
 
+  Let
+  \[
+    (a_i)^{\infty}_{i=1} = \left(a_1, a_2, a_3, \dots \right)
+  \]
 
+  be an arbitrary vector in \(U\).
+  If we know the first two terms \(a_1, a_2\), the remaining terms are determed
+  by the linear recurrence relation \(x_n - 5x_{n-1} + 6x_{n-2} = 0\).
+  Thus if the first two terms of two sequences of \(U\) are equal, then
+  the sequences are equal.
+  From this observation, we have
+
+  \[
+    (a_i)^{\infty}_{i=1} = a_1 \mathbf{u}_1 + a_2 \mathbf{u}_2
+  \]
+
+  Hence \(\left\{ \mathbf{u}_1, \mathbf{u}_2 \right\}\) is a spanning set of \(U\).
+  It remains to show that \(\left\{ \mathbf{u}_1, \mathbf{u}_2 \right\}\) is a linearly independent set.
+  Suppose that
+  \[
+    c_1 \mathbf{u}_1 + c_2 \mathbf{u}_2 = \mathbf{0}
+  \]
+
+  where \(\mathbf{0}\) is the zero sequence.
+  Then since we have
+
+  \[
+    \begin{split}
+      & (0,0,0,\dots) \\
+      & = c_1 \mathbf{u}_1 + c_2 \mathbf{u}_2 \\
+      & = c_1(0,1,5,19,\dots) + c_2(1,0,-6,-30,-114,\dots) \\
+      & = (c_1, c_2, 5c_1 - 6c_2, 19c_1 - 144c_2, \dots) \\
+    \end{split}
+  \]
+
+  we must have \(c_1 = c_2 = 0\). Hence \(\left\{ \mathbf{u}_1, \mathbf{u}_2 \right\}\) is a linearly independent set, and it is a basis.
+
+  Therefore the dim\((U) = 2\).
+
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Find all vectors in part 2 that are of the form \(x_n = r^n\). Can you find a basis of vectors of this form.
+  If so, prove it. If not, find a basis using as many vectors of the form \(x_n = r^n\) as you can.
+  \begin{solutionToProblem}
+    Since we have a a linear recurrence relation
+    \begin{equation}
+      x_n = 5x_{n-1} - 6x_{n-2}
+    \end{equation}
+
+    we know that this must be true
+    \begin{equation}
+      x_n - 5x_{n-1} + 6x_{n-2} = 0
+    \end{equation}
+
+    Now, by using the theorem of \textbf{characteristic} in the linear recurrence relation, we get
+    \begin{equation}
+      \begin{split}
+        t^2 - 5t + 6 = 0 \\
+        (t-2)(t-3) = 0
+      \end{split}
+    \end{equation}
+    Therefore the solution to the equation is that \(t = 2, 3\).
+  \end{solutionToProblem}
+
+  By the definition, we will end up with having
+  \begin{equation}
+    \begin{split}
+      x_n = A \times 2^{n-1} + B \times 3^{n-1} \\
+      x_1 = A + B = 0 \\
+      x_2 = 2A + 3B = 1
+    \end{split}
+  \end{equation}
+
+  Thus, our coefficients for \(r^n\) is respectively
+  \[
+    \begin{split}
+      A = 1 \\
+      B = -1
+    \end{split}
+  \]
+
+  Therefore, the form of \(x_n = r^n\) is that
+  \begin{equation}
+    \begin{split}
+      x_n = 3^n - 2^n
+    \end{split}
+  \end{equation}
+
+Or we can re write the formula to represent in dollars
+\begin{equation}
+  x_n = \frac{3^{n-1} - 2^{n-1}}{100}
+\end{equation}
+  we know that this \(x_n\) is presented in terms of cents.
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Based on your results, determine a formula for how much money Nancy will receive each week if she chooses the first option.
+  \begin{solutionToProblem}
+
+    Let \(n\) be a week and \(f(n)\) is an amount that she receives in the given \(n\)th week. Then she will get an amount of money in dollars as the weeks go
+    \begin{equation}
+      \begin{split}
+        f(1) & = 0.00 \\
+        f(2) & = 0.01 \\
+        f(3) & = 0.05 \\
+        f(4) & = 0.65 \\
+        f(5) & = 2.11 \\
+        f(6) & = 6.65 \\
+        f(7) & = 20.59 \\
+        f(8) & = 63.05 \\
+        f(9) & = 191.71 \\
+        f(10) & = 580.25 \\
+        & \vdots \\
+        f(n) & = \frac{3^{n-1} - 2^{n-1}}{100} \\
+      \end{split}
+    \end{equation}
+  \end{solutionToProblem}
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Do the same for the second option. You need not do the corresponding proofs in this case, just do the calculations.
+\begin{solutionToProblem}
+  Let \(n\) be a week and \(g(n)\) is an amount that she receives
+  in the given \(n\)th week. Then she will get an amount of money in dollors
+  as the weeks go
+  \begin{equation}
+    \begin{split}
+      g(1) & = 0.00 \\
+      g(2) & = 1.00 \\
+      g(3) & = 1.00 \\
+      g(4) & = 2.00 \\
+      g(5) & = 3.00 \\
+      g(6) & = 5.00 \\
+      g(7) & = 8.00 \\
+      g(8) & = 13.00 \\
+      g(9) & = 21.00 \\
+      g(10) & = 34.00 \\
+      & \vdots \\
+      f(n) & = \frac{(\frac{(1 + \sqrt{5})}{2})^n - (\frac{(1 - \sqrt{5})}{2})^n}{\sqrt{5}}
+    \end{split}
+  \end{equation}
+\end{solutionToProblem}
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Which choice will be better for Nancy?
+  \begin{solutionToProblem}
+    The first option is better for Nancy because the amount of money she receives each week will always larger than \(6\)th week,
+     \[
+      f(n) > g(n) \hspace{0.3cm} \mbox{if } n > 5
+     \]
+
+     Also, the total amount of money will be larger from \(9\)th week if she chooses first option.
+
+  \end{solutionToProblem}
 \end{homeworkProblem}
 
 \end{document}
