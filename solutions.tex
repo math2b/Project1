@@ -17,6 +17,8 @@
 \usepackage[plain]{algorithm}
 \usepackage{algpseudocode}
 \usepackage{chngcntr}
+\usepackage{tikz}
+\usepackage{color}
 
 \usetikzlibrary{automata,positioning}
 
@@ -30,6 +32,7 @@
 \textwidth=6.5in
 \textheight=9.0in
 \headsep=0.25in
+\linespread{1.1}
 
 \counterwithin*{equation}{section}
 \counterwithin*{equation}{subsection}
@@ -641,8 +644,11 @@ whether or not it is invertible and explain why.
 
 \sol
 
-All the matrices above are invertible. Each matrices is able to be written in RREF,
-and they are nonsingular matrices since they are square matrices and identity matrices.
+All the matrices above are invertible except \textbf{d}'s matrix.
+This is because every matrix can be row-reduced,
+and they are nonsingular matrices
+since they are square matrices and identity matrices. However, the \textbf{d}'s
+ matrix is not an invertible matrix, and we found out that this is a singular matrix.
 
 \bigskip
 
@@ -700,9 +706,9 @@ d. $%
 \end{bmatrix}
 \xrightarrow[]{\text{RREF}}
 \begin{bmatrix}
-\pivot & 0 & 0 \\
-0 & \pivot & 0 \\
-0 & 0 & \pivot
+\pivot & 0 & \frac{4}{5} \\
+0 & \pivot & -\frac{9}{10} \\
+0 & 0 & 0
 \end{bmatrix}
 $
 
@@ -1144,7 +1150,8 @@ On the other hand, \textbf{Condensation} method gives
 
 \[
   \begin{split}
-    det(A) =
+    det(A)
+    =
     \frac{1}{v}
     \matxx
     {
@@ -1186,11 +1193,32 @@ Other than that, two different methods give the same determinant.
 
 \textbf{Solution}
 
-This operation avoids the situation where encounters zero occured in the interior of a derived block. Otherwise we may have an undefined value, and this is not the case we want to end up with.
-To avoid this case, Dodgson introduced the process: transpose the rows or columns cyclically.
+This operation avoids the situation where encountering zero occured in the interior of a derived block.
+Otherwise we may have an undefined value, and this is not the case we want to end up with.
+To avoid this case, Dodgson introduced the process: transposing rows or columns cyclically.
 Based on the numerical example above, we notice that the matrices are derived from the same matrix, but have different components. The one that stays in the left side shows that we have no further steps since there is a zero in the interior of the block.
 On the other hand, however, the one that stays at the right side ends up with having a finite value by using a process Dodgson introduced.
 By using his process, we can get its original matrix's determinant.
+
+The logic behind this method is that
+transposing rows and columns is chaning an order,
+but they still stay next to each other as the original order stays. Picking which rows or columns to be the first order,
+then the following rows and columns are staying in that order.
+
+\begin{center}
+  \begin{tikzpicture}
+
+  \def \n {5}
+  \def \radius {2cm}
+  \def \margin {20} % margin in angles, depends on the radius
+
+  \foreach \s in {1,...,\n} {
+    \node[draw, circle] at ({360/\n * (\s - 1)}:\radius) {\(\s\)};
+    \draw[->, >=latex] ({360/\n * (\s - 1)+\margin}:\radius)
+      arc ({360/\n * (\s - 1)+\margin}:{360/\n * (\s)-\margin}:\radius);
+  }
+  \end{tikzpicture}
+\end{center}
 
 \bigskip
 
@@ -1203,8 +1231,8 @@ By using his process, we can get its original matrix's determinant.
 Condensation method for the left-hand sided matrix is that
 \[
 \begin{split}
-  \matxxxxx{2 & -1 & 2 & 1 & -3}{1 & 2 & 1 & -1 & 2}{1 & -1 & -2 & -1 & -1}{2 & 1 & -1 & -2 & -1}{1 & -2 & -1 & -1 & 2}
-  = \matxxxx
+  \matxxxxx{2 & -1 & 2 & 1 & -3}{1 & 2 & 1 & -1 & 2}{1 & -1 & -2 & -1 & -1}{2 & 1 & -1 & -2 & -1}{1 & -2 & -1 & -1 & 2} \\
+  & = \matxxxx
   {
     \matxx{2 & -1}{1 & 2} &
     \matxx{-1 & 2}{2 & 1} &
@@ -1229,8 +1257,8 @@ Condensation method for the left-hand sided matrix is that
     \matxx{-1 & -2}{-1 & -1} &
     \matxx{-2 & -1}{-1 & 2}
   } \\
-  = \matxxxx{5 & -5 & -3 & -1}{-3 & -3 & -3 & 3}{3 & 3 & 3 & -1}{-5 & -3 & -1 & -5} \\
-  = \matxxx
+  & = \matxxxx{5 & -5 & -3 & -1}{-3 & -3 & -3 & 3}{3 & 3 & 3 & -1}{-5 & -3 & -1 & -5} \\
+  & = \matxxx
   {
     \matxx{5 & -5}{-3 & -3} &
     \matxx{-5 & -3}{-3 & -3} &
@@ -1246,7 +1274,7 @@ Condensation method for the left-hand sided matrix is that
     \matxx{3 & 3}{-3 & -1} &
     \matxx{3 & -1}{-1 & -5}
   } \\
-  = \matxxx{-15 & 6 & 12}{0 & \mathbf{0} & 6}{6 & -6 & 8}
+  & = \matxxx{-15 & 6 & 12}{0 & \mathbf{0} & 6}{6 & -6 & 8}
 \end{split}
 \]
 
@@ -1260,7 +1288,7 @@ Condenstaion method for the right-sided matrix shows the steps
     {2 &  1 & -1 & -2 & -1}
     {1 & -2 & -1 & -1 &  2}
     {2 & -1 &  2 &  1 & -3}
-    = \matxxxx
+    & = \matxxxx
     {
       \matxx{1 & 2}{1 & -1} &
       \matxx{2 & 1}{-1 & -2} &
@@ -1285,12 +1313,12 @@ Condenstaion method for the right-sided matrix shows the steps
       \matxx{-1 & -1}{2 & 1} &
       \matxx{-1 & 2}{1 & -3}
     } \\
-    = \matxxxx
+    & = \matxxxx
     {-3 & -3 & -3 &  3}
     {3 &  3 &  3 & -1}
     {-5 & -3 & -1 & -5}
     {3 & -5 &  1 &  1} \\
-    = \matxxx
+    & = \matxxx
     {
       \matxx{-3 & -3}{3 & 3} &
       \matxx{-3 & -3}{3 & 3} &
@@ -1306,8 +1334,52 @@ Condenstaion method for the right-sided matrix shows the steps
       \matxx{-3 & -1}{-5 & 1} &
       \matxx{-1 & -5}{1 & 1}
     } \\
-    = \matxxx{0 & 0 & 6}{6 & -6 & 8}{-17 & 7 & -4}
+    & = \matxxx{0 & 0 & 6}{6 & -6 & 8}{-17 & 7 & -4}
   \end{split}
 \]
+
+\pagebreak
+
+\section{Summary}
+
+Since the paper introduces two methods for calculating determinants,
+we were interested in the algorithm how the Dodgson's condensation method works.
+Meanwhile we were fascinated by its great method, we figured out how Laplace expansion works.
+
+If I have a coefficient matrix \(2 \times 2\), we can build a system of linear equations with a zero vector constant \(\)
+so that we may solve this system
+\[
+  \matxx{a & b & 0}{c & d & 0}
+  \arrow{}
+  \begin{matrix}
+    ax + by = 0 \\
+    cx + dy = 0
+  \end{matrix}
+\]
+
+Now, we end up with
+\[
+  \begin{split}
+    (da - bc)y  & = 0 \\
+    da - bc & = 0 \hspace{0.5cm} \mbox{ if } y \neq 0
+  \end{split}
+\]
+
+\noindent This is really a determinant for any matrix \(2 \times 2\), and this is the only solution
+for that system of linear equations. Our investigation would apply to any other matrix \(n \times n\), and we finally found the pattern:
+a number of terms for solving determinants of a matrix \(n \times n\) is as many as \(\mathbf{!n}\). Thus, a number of terms for a determinant of a matrix \(4 \times 4\) is \(\mathbf{24}\).
+
+\bigskip
+
+\noindent Even though we spent some time to figure out why Dodgson's condensation method works,
+we didn't discover many clues, but we understood how it works. We now know that
+Dodgson's condensation method is useuful when computing larger matrices \(n \times n\), but
+every centered value for each term must not be zero to go to the next step. We checked and understood switching rows would be a way to
+figure the problem out.
+
+\bigskip
+
+\noindent Overall, this paper critically helped a lot for us to understand how to compute determinants, and
+also we learned how to discover minors and their complements in any matrices \(n \times n\).
 
 \end{document}

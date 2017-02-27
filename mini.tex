@@ -370,13 +370,17 @@ Additive Inverses, Scalar Multiplication Associativity, Distributivity across Ve
 
   \textbf{Solution}
 
+  \bigskip
+
+\textbf{1. Determining Spanning Set}
+
   Let
   \[
     (a_i)^{\infty}_{i=1} = \left(a_1, a_2, a_3, \dots \right)
   \]
 
   be an arbitrary vector in \(U\).
-  If we know the first two terms \(a_1, a_2\), the remaining terms are determed
+  If we know the first two terms \(a_1, a_2\), the remaining terms are determined
   by the linear recurrence relation \(x_n - 5x_{n-1} + 6x_{n-2} = 0\).
   Thus if the first two terms of two sequences of \(U\) are equal, then
   the sequences are equal.
@@ -386,8 +390,14 @@ Additive Inverses, Scalar Multiplication Associativity, Distributivity across Ve
     (a_i)^{\infty}_{i=1} = a_1 \mathbf{u}_1 + a_2 \mathbf{u}_2
   \]
 
-  Hence \(\left\{ \mathbf{u}_1, \mathbf{u}_2 \right\}\) is a spanning set of \(U\).
-  It remains to show that \(\left\{ \mathbf{u}_1, \mathbf{u}_2 \right\}\) is a linearly independent set.
+Hence \(\left\{ \mathbf{u}_1, \mathbf{u}_2 \right\}\) is a spanning set of \(U\).
+
+\bigskip
+
+\textbf{2. Determining if the sequence is a basis}
+
+It remains to show that \(\left\{ \mathbf{u}_1, \mathbf{u}_2 \right\}\) is a linearly independent set.
+\begin{proof}
   Suppose that
   \[
     c_1 \mathbf{u}_1 + c_2 \mathbf{u}_2 = \mathbf{0}
@@ -404,10 +414,17 @@ Additive Inverses, Scalar Multiplication Associativity, Distributivity across Ve
       & = (c_1, c_2, 5c_1 - 6c_2, 19c_1 - 144c_2, \dots) \\
     \end{split}
   \]
+  we must have \(c_1 = c_2 = 0\).
+\end{proof}
 
-  we must have \(c_1 = c_2 = 0\). Hence \(\left\{ \mathbf{u}_1, \mathbf{u}_2 \right\}\) is a linearly independent set, and it is a basis.
+\bigskip
 
-  Therefore the dim\((U) = 2\).
+Hence \(\left\{ \mathbf{u}_1, \mathbf{u}_2 \right\}\) is a linearly independent set, and it is a basis.
+
+Therefore
+\[
+  \mbox{dim}((U) = 2
+\]
 
 \end{homeworkProblem}
 
@@ -526,13 +543,17 @@ Or we can re write the formula to represent in dollars
 \begin{homeworkProblem}
   Which choice will be better for Nancy?
   \begin{solutionToProblem}
-    The first option is better for Nancy because the amount of money she receives each week will always larger than \(6\)th week,
-     \[
+    The first option is better for Nancy because the amount of money she receives each week will always larger from \(6\)th week,
+    \begin{equation}
       f(n) > g(n) \hspace{0.3cm} \mbox{if } n > 5
-     \]
+    \end{equation}
 
      Also, the total amount of money will be larger from \(9\)th week if she chooses first option.
+     \begin{equation}
+       \sum_{n=1}^{\infty} f(n) > \sum_{n=1}^{\infty} g(n) \hspace{0.3cm} \mbox{if } n > 8
+     \end{equation}
 
+     Thus, we have enough reason to say that the first option is better for Nancy.
   \end{solutionToProblem}
 \end{homeworkProblem}
 
