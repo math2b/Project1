@@ -220,7 +220,7 @@ This is for the first option
   \begin{cases}
     0 & \mbox{if } n = 1 \\
     0.01 & \mbox{if } n = 2 \\
-    5x_{n-1} - 6x_{n-2} & \mbox{where } n > 3
+    5x_{n-1} - 6x_{n-2} & \mbox{where } n > 2
   \end{cases} \\
 \end{equation}
 
@@ -230,7 +230,7 @@ This is for the second option
   \begin{cases}
     0 & \mbox{if } n = 1 \\
     1 & \mbox{if } n = 2 \\
-    x_{n-1} + x_{n-2} & \mbox{where } n > 3
+    x_{n-1} + x_{n-2} & \mbox{where } n > 2
   \end{cases}
 \end{equation}
 
@@ -313,8 +313,8 @@ The second option is actually Fibonacci series pattern
 
   \begin{equation}
     \begin{aligned}[left]
-      \mathbf{u} = (0,1,5,19,\dots) \\
-      \mathbf{v} = (1,0,-6,-30,-114,\dots) \\
+      \mathbf{u} & = (0,1,5,19,\dots) \\
+      \mathbf{v} & = (1,0,-6,-30,-114,\dots) \\
     \end{aligned}
   \end{equation}
 
@@ -423,7 +423,7 @@ Hence \(\left\{ \mathbf{u}_1, \mathbf{u}_2 \right\}\) is a linearly independent 
 
 Therefore
 \[
-  \mbox{dim}((U) = 2
+  \mbox{dim}(U) = 2
 \]
 
 \end{homeworkProblem}
@@ -457,17 +457,17 @@ Therefore
   By the definition, we will end up with having
   \begin{equation}
     \begin{split}
-      x_n = A \times 2^{n-1} + B \times 3^{n-1} \\
-      x_1 = A + B = 0 \\
-      x_2 = 2A + 3B = 1
+      x_n & = A \times 2^{n-1} + B \times 3^{n-1} \\
+      x_1 & = A + B = 0 \\
+      x_2 & = 2A + 3B = 1 \\
     \end{split}
   \end{equation}
 
   Thus, our coefficients for \(r^n\) is respectively
   \[
     \begin{split}
-      A = 1 \\
-      B = -1
+      A & = 1 \\
+      B & = -1
     \end{split}
   \]
 
